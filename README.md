@@ -45,22 +45,49 @@ wireframes.
 ## How you work in this repo
 
 Use it like a Claude project: the conversation is in the terminal, the
-artifacts live in this directory as markdown files. The plugin writes its
-output in reading order:
+artifacts live in this directory as markdown files. **Every UA document
+goes under [`docs/`](docs/)** so it can be published as a Jekyll site (see
+below). The plugin writes its output in reading order:
 
 | File | What it is |
 |---|---|
-| `UA0-PROJECT-STATUS.md` | Where the project is in the process (maintained by Claude) |
-| `ua1-opportunity-notes.md` | Friction observed, conversations, candidate opportunity |
-| `ua2-positioning-statement.md` | Geoffrey Moore positioning paragraph + evidence |
-| `ua3-research-plan.md` | Desk research plan, sources, log |
-| `ua4-interview-plan.md` | Recruiting, question areas, falsification commitments |
-| `ua5-stage-2-analysis.md` | Landscape, stakeholders, JTBD and scenarios |
-| `ua6-specification.md` | Screen inventory and requirements |
-| `wireframes/` | Astro + wired-elements wireframes |
+| `docs/UA0-PROJECT-STATUS.md` | Where the project is in the process (maintained by Claude) |
+| `docs/ua1-opportunity-notes.md` | Friction observed, conversations, candidate opportunity |
+| `docs/ua2-positioning-statement.md` | Geoffrey Moore positioning paragraph + evidence |
+| `docs/ua3-research-plan.md` | Desk research plan, sources, log |
+| `docs/ua4-interview-plan.md` | Recruiting, question areas, falsification commitments |
+| `docs/ua5-stage-2-analysis.md` | Landscape, stakeholders, JTBD and scenarios |
+| `docs/ua6-specification.md` | Screen inventory and requirements |
+| `docs/index.md` | Curated front page; Claude keeps it in sync as docs are added |
+| `wireframes/` | Astro + wired-elements wireframes (Stage 3, repo root — not Jekyll) |
+
+The `ua-framework` plugin's own instructions refer to these files at the
+project root; [CLAUDE.md](CLAUDE.md) overrides that to put them under
+`docs/`. The path override is the first thing Claude reads.
 
 Commit as you go — the git history of these files is part of the learning
 record.
+
+## Published Jekyll site
+
+`docs/` is published as a [GitHub Pages][gh-pages] Jekyll site so
+stakeholders can read the work-in-progress without cloning the repo.
+
+[gh-pages]: https://docs.github.com/en/pages/quickstart
+
+- The site uses the `jekyll-theme-cayman` theme (configurable in
+  [`docs/_config.yml`](docs/_config.yml)).
+- [`docs/index.md`](docs/index.md) is the front page. Claude keeps it in
+  sync via the `update-jekyll-index` local skill — every time a UA
+  document is created or materially revised, the index gets a fresh
+  one-line description of that file plus an updated "Project status"
+  snippet pulled from `UA0-PROJECT-STATUS.md`.
+- Every UA markdown file should carry a `title:` front-matter block; the
+  plugin's templates don't include one, but Claude adds it when writing
+  the file under `docs/`.
+
+**To enable Pages on this repo:** Settings → Pages → Build from a branch
+→ `master` / `docs`. Push to `master` and the site builds automatically.
 
 ## Useful commands
 
@@ -72,7 +99,7 @@ record.
 
 ## How the auto-install works
 
-Two files do the work:
+Three pieces do the work:
 
 - [.devcontainer/devcontainer.json](.devcontainer/devcontainer.json) installs
   Claude Code in the container via the official Anthropic dev-container
@@ -81,10 +108,19 @@ Two files do the work:
   marketplace under `extraKnownMarketplaces` and force-enables the
   `ua-framework` plugin via `enabledPlugins`. When you trust the folder,
   Claude Code installs the plugin from the marketplace on first run.
+- [CLAUDE.md](CLAUDE.md) is read on every session start. It tells Claude
+  that every UA document goes under `docs/` (overriding the plugin's
+  default of project root) and that `docs/index.md` must be kept in sync
+  as documents are added.
 
 [.devcontainer/post-create.sh](.devcontainer/post-create.sh) pre-clones the
 marketplace into the plugin cache so the first `claude` start is fast, but
 it is best-effort — Claude Code will fetch on demand if the pre-fetch fails.
+
+The [`.claude/skills/update-jekyll-index/`](.claude/skills/update-jekyll-index/)
+skill is a local (non-plugin) skill that codifies the index-maintenance
+rule. The plugin doesn't know about Jekyll; this skill is how we layer it
+on top.
 
 ## Running it outside a Codespace
 
