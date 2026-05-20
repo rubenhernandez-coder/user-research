@@ -1,5 +1,8 @@
 ---
-title: UA3 — Research Plan
+title: "UA3 — Research Plan"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # UA3 — Research Plan

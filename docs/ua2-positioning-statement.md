@@ -1,5 +1,8 @@
 ---
-title: UA2 — Positioning Statement
+title: "UA2 — Positioning Statement"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # UA2 — Positioning Statement

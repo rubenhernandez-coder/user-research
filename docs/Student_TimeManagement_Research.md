@@ -1,5 +1,8 @@
 ---
-title: Background Research — Student Time Management
+title: "Background Research — Student Time Management"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # Background Research: Student Time Management & the Case for a Scheduling App

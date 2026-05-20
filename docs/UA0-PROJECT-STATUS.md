@@ -1,5 +1,8 @@
 ---
-title: UA0 — Project Status
+title: "UA0 — Project Status"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # UA0 — Project Status

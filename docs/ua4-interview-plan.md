@@ -1,5 +1,8 @@
 ---
-title: UA4 — Interview Plan
+title: "UA4 — Interview Plan"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # UA4 — Interview Plan

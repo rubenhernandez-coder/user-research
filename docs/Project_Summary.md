@@ -1,5 +1,8 @@
 ---
-title: Study AI — Project Summary
+title: "Study AI — Project Summary"
+layout: single
+toc: true
+toc_sticky: true
 ---
 
 # Study AI — Project Summary

@@ -1,38 +1,44 @@
-title: User Research Project
+title: "User Research Project"
+subtitle: "Study AI · Stage 1 — Discovery"
 description: >-
   Structured user research with the ua-framework — the published record of
   a project moving from opportunity discovery through specification.
 
-theme: jekyll-theme-cayman
+remote_theme: mmistakes/minimal-mistakes
 
-# Files at the top level of docs/ are the UA documents. List them with
-# their generated paths so links from index.md work.
-include:
-  - UA0-PROJECT-STATUS.md
+plugins:
+  - jekyll-remote-theme
+  - jekyll-include-cache
+  - jekyll-sitemap
 
-# Exclude things that should never end up on the published site even if
-# they happen to land in docs/.
+author:
+  name: "Ruben Hernandez"
+  email: "ruben.hernandez@students.jointheleague.org"
+
+# Top navigation links (rendered in the masthead)
+header_pages:
+  - index.md
+
+# Exclude files that should not become pages
 exclude:
-  - README.md
   - Gemfile
   - Gemfile.lock
   - vendor
   - .bundle
+  - "*.docx"
 
-# Use relative URLs so the site works both on github.io and on a custom
-# domain without reconfiguration.
-relative_permalinks: false
+# Apply the 'single' layout to all pages by default and enable the TOC sidebar
+defaults:
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      toc: true
+      toc_sticky: true
+      author_profile: false
 
-# Markdown rendering
 markdown: kramdown
 kramdown:
   input: GFM
   syntax_highlighter: rouge
-
-# Default front-matter: every page gets a title from its front-matter or
-# falls back to the H1.
-defaults:
-  - scope:
-      path: ""
-    values:
-      layout: default

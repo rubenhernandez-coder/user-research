@@ -1,0 +1,13 @@
+main:
+  - title: "Home"
+    url: /user-research/
+  - title: "Project Status"
+    url: /user-research/UA0-PROJECT-STATUS/
+  - title: "Positioning Statement"
+    url: /user-research/ua2-positioning-statement/
+  - title: "Research Plan"
+    url: /user-research/ua3-research-plan/
+  - title: "Interview Plan"
+    url: /user-research/ua4-interview-plan/
+  - title: "Project Summary"
+    url: /user-research/Project_Summary/
