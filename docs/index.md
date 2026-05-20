@@ -1,7 +1,7 @@
 ---
 title: User Research Project
 layout: home
-last_updated: 2026-05-15
+last_updated: 2026-05-20
 ---
 
 # User Research Project
@@ -15,31 +15,29 @@ documents below are produced as the project moves through those stages.
 
 ## Project status
 
-The project has not been started yet. Run `claude` in the repo, then
-`/ua-framework:start`. The orchestrator will create
-[`UA0-PROJECT-STATUS.md`](UA0-PROJECT-STATUS.md) and route the student
-into the right activity.
+**Stage 1 — Discovery** · Pass 3 — Interview planning · Last updated: 2026-05-20
 
-Once the project is underway, this section will show the current stage,
-current pass or activity, last status update, and most recent checkpoint —
-maintained by the `update-jekyll-index` skill.
+The positioning statement is drafted and has been refined through desk research (Pass 2) and three interviews (Jayden, Johnny, Ruben). Pass 3 is underway — interview planning is complete for a fourth interview (Luis, date TBD).
+
+| Clause | Status |
+|---|---|
+| Target customer | drafted from belief |
+| Need or opportunity | evidenced by interview |
+| Product name | drafted from belief |
+| Product category | drafted from belief |
+| Key benefit | drafted from belief |
+| Primary competitive alternative | evidenced by interview |
+| Primary differentiation | refined by research |
 
 ## Documents
 
-No UA documents have been produced yet. As the student works through the
-process, the agent will add files under `docs/` and update this index
-with a one-line description of each. The full set of possible documents
-is:
-
-- `UA0-PROJECT-STATUS.md` — agent-maintained record of where the project is
-- `ua1-opportunity-notes.md` — friction observed, conversations, candidate opportunity (opportunity discovery)
-- `ua2-positioning-statement.md` — Moore positioning paragraph + per-clause evidence (Stage 1)
-- `ua3-research-plan.md` — desk research plan, sources, log (Stage 1)
-- `ua4-interview-plan.md` — recruiting, question areas, falsification commitments (Stage 1)
-- `ua5-stage-2-analysis.md` — landscape, stakeholders, JTBD and scenarios (Stage 2)
-- `ua6-specification.md` — screen inventory, descriptions, requirements (Stage 3)
-- `wireframes/` — Astro + wired-elements project (Stage 3, lives at repo root)
+- [`UA0-PROJECT-STATUS.md`](UA0-PROJECT-STATUS.md) — agent-maintained record of current stage, pass, and positioning clause status
+- [`ua2-positioning-statement.md`](ua2-positioning-statement.md) — Moore positioning paragraph with per-clause evidence log (Stage 1)
+- [`ua3-research-plan.md`](ua3-research-plan.md) — desk research plan, sources, and findings log (Stage 1, Pass 2)
+- [`ua4-interview-plan.md`](ua4-interview-plan.md) — recruiting, question guide, and falsification commitments (Stage 1, Pass 3)
+- [`Project_Summary.md`](Project_Summary.md) — shareable overview of the Study AI concept
+- [`Student_TimeManagement_Research.md`](Student_TimeManagement_Research.md) — background research with statistics and sources
 
 ---
 
-*Maintained by the `update-jekyll-index` skill. Last updated: 2026-05-15.*
+*Maintained by the `update-jekyll-index` skill. Last updated: 2026-05-20.*
