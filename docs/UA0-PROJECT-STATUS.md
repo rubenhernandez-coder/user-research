@@ -1,10 +1,3 @@
----
-title: "UA0 — Project Status"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # UA0 — Project Status
 
 This file is maintained by the AI agents working with the student. The student does not edit it.
@@ -21,23 +14,23 @@ It records where the project is in the UA Framework process so any agent invocat
 
 ## Current stage
 
-Stage 1 — Discovery
+Stage 3 — Specification
 
 ## Current pass or activity
 
-Pass 3 — Interview planning
+Screen inventory
 
 ## Positioning statement status
 
 One line per clause. Status values: `not started` | `drafted from belief` | `drafted-unconfirmed` | `refined by research` | `evidenced by interview` | `stable`.
 
-- Target customer: drafted from belief
+- Target customer: evidenced by interview
 - Need or opportunity: evidenced by interview
-- Product name: drafted from belief
-- Product category: drafted from belief
-- Key benefit: drafted from belief
+- Product name: stable (Study AI → CatchUp → OnTrack; "CatchUp" rejected because it implies failure; "OnTrack" names the state the product keeps you in)
+- Product category: refined by research
+- Key benefit: evidenced by interview
 - Primary competitive alternative: evidenced by interview
-- Primary differentiation: refined by research
+- Primary differentiation: evidenced by interview
 
 ## Completed checkpoints
 
@@ -46,14 +39,9 @@ One line per clause. Status values: `not started` | `drafted from belief` | `dra
 - 2026-05-12 Interview 1 (Jayden) — evidenced Need or opportunity, confirmed Competitive alternative
 - 2026-05-12 Interview 2 (Johnny) — evidenced Need or opportunity, confirmed Competitive alternative
 - 2026-05-12 Interview 3 (Ruben) — evidenced Need or opportunity, confirmed Competitive alternative
-
-## Completed checkpoints
-
-A running list. Each entry is a single line: what was completed, and the date.
-
-- 2026-05-06 Explored problem space through brainstorming and initial desk research
-- 2026-05-06 Named candidate idea: Study AI (AI-powered study scheduling for students 13–25)
-- 2026-05-06 Produced pitch document and project summary
+- 2026-05-12 Stage 1 — Discovery complete (all clauses evidenced or confirmed)
+- 2026-05-12 Stage 2 — Analysis complete (ua5 written: Landscape, Stakeholders/Users, Jobs/Scenarios, all exit criteria met)
+- 2026-05-20 ua5-stage-2-analysis.md recovered from session transcript and saved to workspace
 
 ## Known gaps
 
@@ -62,9 +50,4 @@ Things the student and agent have flagged as not yet addressed. Carried forward 
 - No real user conversations yet — idea came from brainstorming with AI, not observed friction in a specific person's life
 - Pitch document (StudyAI_Pitch.docx) exists but was created before the positioning statement — it may need revision once the statement is evidenced
 - No falsification commitments written before any interviews
-- Differentiation clause revised through research but still needs confirmation through interviews — existing apps are either professional-focused (Trevor AI) or passive trackers (MyStudyLife, myHomework). Study AI's angle is active planning built specifically for teenagers. Needs interview evidence to move to stable.
-
-## Last updated
-
-- **Date:** 2026-05-06
-- **By:** ua-orchestrator
+- Differentiation clause revised through research but still needs confirmation through interviews — existing apps are either professional-focused (Trevor AI) or passive trackers (MyStudyLife, myHomework). Study AI's angle is active planning built specifically for teenagers. Needs interview evidence to mov

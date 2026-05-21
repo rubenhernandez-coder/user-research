@@ -1,10 +1,3 @@
----
-title: "UA3 — Research Plan"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # UA3 — Research Plan
 
 Produced in Pass 2 of Stage 1. Names what desk research the student is going to do, in service of which clauses of the positioning statement, with what stopping criteria. Updated as research is conducted to log what was searched, what was found, and how the student interpreted it.

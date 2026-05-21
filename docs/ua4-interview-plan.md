@@ -1,10 +1,3 @@
----
-title: "UA4 — Interview Plan"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # UA4 — Interview Plan
 
 Produced in Pass 3 of Stage 1. Names who the student is interviewing and why, the question areas for the open-ended phase, the prompts for the solution feedback phase, and a falsification commitment set per planned interview.
@@ -16,19 +9,6 @@ The plan format is bullet points of question areas, not a script. Scripts produc
 ## Recruiting
 
 One subsection per planned interviewee.
-
-### Luis
-
-- **Who:** Friend, in-person, reachable directly
-- **Why worth talking to:** Student at same school — History, Computer class, and English honors. Balanced a college class first semester. Goes to the gym 6 days a week (1–1.5 hrs/session), attends cooking club, and maintains an active social life (4–5 gatherings a week). Has real schedule pressure and successfully navigated a college class, suggesting he has some informal system already. New interviewee — no prior exposure to Study AI idea, so reaction to the differentiation is unfiltered.
-- **Clauses their input most affects:** Primary differentiation, Target customer, Primary competitive alternative
-- **Earlyvangelist filter:**
-  - [ ] Has the problem
-  - [ ] Knows they have the problem
-  - [ ] Has tried to solve the problem
-  - [ ] Is unhappy with their workaround
-
----
 
 ### Jayden
 
@@ -133,18 +113,6 @@ Only entered after the user has confirmed the problem in their own words. If the
 ## Falsification commitments
 
 **One set per planned interview. Written before the interview happens. Reviewed and updated after.**
-
-### Interview 4 — Luis (date TBD)
-
-#### Primary differentiation
-
-- **Current belief:** Students would stick with a tool that does the planning for them with almost no setup required — because existing tools are either too complicated or too passive.
-- **Confirms it if:** Luis says he hasn't had success with scheduling tools because they overcomplicate things or are too simple to be useful, leaving a clear gap that automatic planning would fill.
-- **Refutes it if:** Luis says he already has a working system and doesn't feel like he needs anything else.
-- **Complicates it if:** Luis only feels the problem during specific crunch periods (e.g., finals, end of semester) and not consistently throughout the year — raising the question of whether students would bother adopting a tool they only need occasionally.
-- **What actually happened:** [to be filled in after the interview]
-
----
 
 ### Interview 3 — Ruben (date TBD)
 

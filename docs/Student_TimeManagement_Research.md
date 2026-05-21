@@ -1,10 +1,3 @@
----
-title: "Background Research — Student Time Management"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # Background Research: Student Time Management & the Case for a Scheduling App
 
 *Research compiled for the Pitch Idea — Homework & Exam Deadline Planner*

@@ -1,12 +1,4 @@
----
-title: "UA2 — Positioning Statement"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # UA2 — Positioning Statement
-
 
 The deliverable of Stage 1. Drafted in Pass 1 from current belief, revised across Passes 2–4 as research and interview evidence comes in. Every clause must be defensible by the time Stage 1 exits.
 
@@ -16,7 +8,7 @@ The statement at the top is the public-facing artifact — short, clean, one par
 
 ## Statement
 
-> For teenagers juggling academics and extracurricular obligations, who struggle to balance their academic workload with everything else competing for their time, Study AI is a smart study planner that turns a chaotic schedule into a clear plan, reducing the stress of juggling academics and outside commitments. Unlike trying to remember every deadline in your head, setting it as an alarm, or basic planner apps, Study AI does the planning for you, organizes it, and reminds you when to work — so you don't have to think about the system, just the work.
+> For teenagers juggling academics and extracurricular obligations, who struggle to balance their academic workload with everything else competing for their time, OnTrack is a smart study planner that turns a chaotic schedule into a clear plan, reducing the stress of juggling academics and outside commitments. Unlike trying to remember every deadline in your head, setting it as an alarm, or basic planner apps, our product tells you how to use your time effectively and is built around the reality of a teenager's packed schedule.
 
 ---
 
@@ -26,11 +18,11 @@ Per-clause status. Mirrors the per-clause status in `UA0-PROJECT-STATUS.md`.
 
 - **Target customer:** drafted from belief
 - **Need or opportunity:** evidenced by interview
-- **Product name:** drafted from belief
+- **Product name:** stable
 - **Product category:** drafted from belief
 - **Key benefit:** drafted from belief
 - **Primary competitive alternative:** evidenced by interview
-- **Primary differentiation:** refined by research
+- **Primary differentiation:** drafted-unconfirmed
 
 Status values: `not started` | `drafted from belief` | `drafted-unconfirmed` | `refined by research` | `evidenced by interview` | `stable`.
 
@@ -60,12 +52,12 @@ One subsection per clause. Updated continuously across all five passes.
 
 ### Product name
 
-- **Current belief:** Study AI
-- **Basis for the belief:** Working name from prior brainstorming. Clean, memorable, signals the core function.
+- **Current belief:** OnTrack
+- **Basis for the belief:** Went through two prior names. "OnTrack" felt aggressive and implied the AI was doing the studying. "CatchUp" was considered next but rejected — the name implies the user is already behind, which is the opposite of what the product does. "OnTrack" was chosen because it names the state the product keeps you in: you never fall off in the first place. The motto is to help you before you need to catch up.
 - **Evidence found:**
-  - [none yet]
-- **Alternatives considered:** [none considered yet]
-- **What would change my mind:** If the name creates wrong expectations (e.g., users expect it to do their homework for them), it may need revision.
+  - Naming evolution documented: OnTrack → CatchUp (rejected: implies failure) → OnTrack (chosen: implies prevention, not recovery)
+- **Alternatives considered:** "OnTrack" — sounds aggressive, sets wrong expectations about AI doing the work. "CatchUp" — rejected because it implies the user is already behind; contradicts the product's core value proposition.
+- **What would change my mind:** If users consistently mishear it as a different product category (e.g., a running or fitness tracker), the name may need a modifier.
 
 > Mostly internal; thin evidence here is acceptable.
 
@@ -93,17 +85,9 @@ One subsection per clause. Updated continuously across all five passes.
 - **Basis for the belief:** Ruben's own behavior and observation; most teenagers don't use structured planning tools consistently — they rely on memory and basic reminders.
 - **Evidence found:**
   - [none yet]
-- **Alternatives considered:** Google Calendar — used by some but not the majority of the target age group. Notes app — possible, but more passive than Study AI's planning function. "Doing nothing" — real but hard to name in a statement.
+- **Alternatives considered:** Google Calendar — used by some but not the majority of the target age group. Notes app — possible, but more passive than OnTrack's planning function. "Doing nothing" — real but hard to name in a statement.
 - **What would change my mind:** If interviews show most target students are already using a structured planning app, the competitive alternative needs to shift to that app specifically.
 
 ### Primary differentiation
 
-- **Current belief:** Study AI does the planning for you, organizes it, and reminds you when to work.
-- **Basis for the belief:** Alarms and memory tell you what's due; Study AI does the planning for you. The core gap is that every existing tool either requires too much setup before it helps (Google Calendar, structured planners) or gives no guidance at all (paper, memory). Study AI eliminates the setup burden and does the thinking for the student.
-- **Evidence found:**
-  - Ruben (interview): Tried using a calendar but abandoned it — found it too complicated and a waste of time. Now just pushes through on his own.
-  - Jayden (interview): Wasn't using any planning tool at all. His coping strategy was brute force and asking for extensions.
-  - Reddit reviews (secondary research): Recurring theme across multiple reviewers — anything requiring setup or maintenance gets abandoned. One reviewer said their brain "refuses to use anything premade." Another said a phone calendar with auto-reminders is "the only way anything ever gets done." The myHomework review showed a beloved app lost its users entirely when it added complexity.
-  - Synthesis: The differentiation is not just "tells you when to work" — it's that Study AI requires almost no setup and does the planning automatically, so students who abandoned every other tool have a reason to stick with this one.
-- **Alternatives considered:** "Won't forget" — true but an alarm does this too, not unique enough. "Structured plan ahead of the deadline" — real but doesn't capture the low-friction angle. "Visualization of available time" — too abstract, doesn't communicate the automatic planning aspect.
-- **What would change my mind:** If a competing product already does low-friction automatic planning well and has significant adoption among the target group, the differentiation needs to be sharpened further. Still needs direct interview confirmation to move to evidenced by interview.
+- **Current belief:** Lays out a visualization o

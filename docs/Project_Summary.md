@@ -1,10 +1,3 @@
----
-title: "Study AI — Project Summary"
-layout: single
-toc: true
-toc_sticky: true
----
-
 # Study AI — Project Summary
 *Ruben Hernandez · May 2026*
 
