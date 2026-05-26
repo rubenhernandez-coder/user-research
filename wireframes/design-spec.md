@@ -236,6 +236,51 @@ Left bar colors by class: Bio `#10b981` · Algebra `#3b82f6` · History `#f59e0b
 - Header hover: background `--surface-2`
 - Assignments area revealed below header on click
 
+### 5.8 Sync failure — returning user banner
+
+Appears at the top of the main content area (below the sidebar, above all screen content) when a sync attempt fails but cached data exists.
+
+- Background: `#fffbeb` (amber-50)
+- Border-bottom: 1px solid `#fde68a` (amber-200)
+- Text color: `#78350f` (amber-900)
+- Padding: 10px 20px, flex row, gap 10px
+
+**Contents (left to right):**
+1. Warning icon ⚠️ (15px, flex-shrink 0)
+2. Message text (flex 1, 12px / 500): "**Couldn't sync with Google Classroom.** Showing your assignments from last night at 9:41 PM — they may be out of date."
+3. Retry button: border 1.5px `#f59e0b`, border-radius `--r-sm`, 11px / 700, hover background `#fef3c7`
+4. Dismiss ×: ghost button, 16px, opacity 0.6, hover opacity 1
+
+**Behavior:** Retry re-attempts sync silently. Dismiss hides the banner for the session.
+
+### 5.8b Sync failure — first-time user screen
+
+Shown instead of the app shell when sync fails and no cached data exists. Full-screen centered card (same layout as Login).
+
+**Card contents:**
+1. Icon: 📡, 36px, margin-bottom 16px
+2. Title: "Couldn't connect to Google Classroom", 17px / 700
+3. Body: "This is usually temporary — Google Classroom may be down, or you might be offline. Your plan will appear once OnTrack can reach your account.", 13px, `--text-muted`
+4. Primary button (full-width): "Try again" — re-attempts sync
+5. Text link below: "Check Google Classroom directly →" — opens classroom.google.com in new tab
+
+**Card:** Same spec as Login card (`--r-xl`, `--shadow-lg`, white, 400px max-width, centered)
+
+### 5.9 Class settings row (inside class folder)
+
+Appears at the top of each expanded class folder, above the assignment list.
+
+- Background: `--surface-2`, border-bottom: 1px solid `--border`, padding: 10px 18px
+- Layout: flex row, space-between
+- Left side: colored icon circle (28px, class tint, 🔗 emoji) + label + description
+- Label: "Cumulative subject", 12px / 600
+- Description: "OnTrack prioritizes this higher — topics build on each other", 11px, `--text-muted`
+- Right side: toggle switch
+
+**Default states:** Biology ON · Algebra II ON · History OFF · English OFF
+
+**Effect on plan:** When ON, OnTrack ranks this class's assignments above non-cumulative ones at the same due date.
+
 ### 5.9 Chat message bubble
 
 AI message:
@@ -595,18 +640,21 @@ Four settings sections:
 
 ## 7. Overlays
 
-### 7.1 Status popup
+### 7.1 Status popup — task completion mechanism
 
 Appears near the tapped plan item (cursor position + 10px offset, constrained to viewport).
 
 - Background: `--surface`, border-radius `--r-lg`, shadow `--shadow-lg`, padding 10px, width 230px
 - Section title: 11px / 700, uppercase, `--text-muted`
-- Five options:
-  1. ✓ Done early
-  2. ⏱ Taking longer → tell assistant *(navigates to Assistant)*
-  3. 🏁 Finished
-  4. ↩ Incomplete
-  5. ☕ Need a break
+- Five options and what each does to the plan:
+
+| Option | Plan effect |
+|---|---|
+| ✓ Done early | Marks complete, pulls in next queued item if time allows |
+| ⏱ Taking longer → tell assistant | Opens Assistant with assignment pre-filled; plan adjusts through conversation |
+| 🏁 Finished | Marks complete, removes from tonight's plan |
+| ↩ Incomplete | Reschedules as first priority tomorrow |
+| ☕ Need a break | Moves to bottom of tonight's list; OnTrack continues with next item |
 - Each option: full-width button, 12px / 500, transparent background, border-radius `--r-sm`, hover `--surface-2`
 - **Dismiss:** click outside the popup
 

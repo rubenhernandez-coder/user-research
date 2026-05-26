@@ -44,6 +44,9 @@ One line per clause. Status values: `not started` | `drafted from belief` | `dra
 - 2026-05-20 ua5-stage-2-analysis.md recovered from session transcript and saved to workspace
 - 2026-05-26 Stage 3 — Specification complete (ua6-specification.md finalized: 7 screens with descriptions, requirements, constraints, open questions)
 - 2026-05-26 Stage 4 — Wireframing started; wireframes/index.html created with all 7 screens as clickable HTML prototype
+- 2026-05-26 Prioritization algorithm decided — hierarchy: due date → cumulative flag → chunking → cognitive demand → estimated time last. Cumulative flag set by student per class via toggle in Classes screen (not inferred by OnTrack). Open question 1 in UA6 resolved.
+- 2026-05-26 Sync failure behavior decided — browser localStorage caches last sync (on-device only, FERPA safe). Returning users see amber stale-data banner; first-time users see full-screen error card with retry + Classroom link. Open question 2 in UA6 resolved.
+- 2026-05-26 Task completion mechanism decided — floating status popup with 5 options (Done early, Taking longer → assistant, Finished, Incomplete, Need a break). Each option has a defined plan effect. Open question 3 in UA6 resolved. All UA6 open questions closed.
 
 ## Known gaps
 

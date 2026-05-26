@@ -155,8 +155,54 @@ A flat list of every screen the system needs.
 
 ---
 
-## Open questions
+## Prioritization algorithm
 
-- How does OnTrack calculate prioritization — what is the algorithm for deciding which assignment goes first (cumulative subjects, due date proximity, estimated time, or a combination)?
-- What does the student see if Google Classroom is down or the sync fails on login?
-- Task completion mechanism — something more nuanced than checkboxes is preferred (e.g., reflecting partial completion or "took longer than expected"), but the specific mechanism is not yet decided
+OnTrack orders tonight's assignments using this hierarchy (highest to lowest):
+
+1. **Due date proximity** — anything due tomorrow is always first, no exceptions.
+2. **Cumulative subject flag** — among assignments with the same due date, subjects the student has marked as cumulative (topics build on each other) rank above non-cumulative ones. Student sets this per class via a toggle inside the Classes screen. Default: OFF.
+3. **Chunk of a long project** — if an assignment is over 60 minutes and due more than 3 days away, OnTrack schedules a small chunk today rather than waiting. Prevents the Luis spiral (waiting for a big block that never comes).
+4. **Cognitive demand first** — within a single night, harder tasks go earlier in the session when the student is fresh. Easy tasks go last.
+5. **Estimated time is a tiebreaker only** — short assignments go last, not first. This directly counters the students' natural instinct (all three interviewees defaulted to picking the easiest/shortest thing first).
+
+**Decision log:** Cumulative subject classification is set by the student per class, not inferred by OnTrack. Rationale: simpler, avoids wrong guesses, consistent with "no setup friction" — the toggle lives inside the class folder so it's seen in context, not buried in a settings screen.
+
+---
+
+## Sync failure behavior
+
+OnTrack stores the last successful sync in browser localStorage (no server storage — data never leaves the student's device, FERPA/COPPA safe).
+
+**Two states:**
+
+**State 1 — Returning user (cache exists):**
+A dismissible amber banner appears at the top of the app:
+> ⚠ Couldn't sync with Google Classroom. Showing your assignments from [last sync time] — they may be out of date. [Retry] [×]
+
+The student can still use their plan from the last sync. Retry re-attempts the Classroom connection silently. Dismissing the banner hides it for the session.
+
+**State 2 — First-time user (no cache):**
+A centered error card replaces the app (full-screen, above the shell):
+> 📡 Couldn't connect to Google Classroom
+> This is usually temporary — Google Classroom may be down, or you might be offline. Your plan will appear once OnTrack can reach your account.
+> [Try again] · Check Google Classroom directly →
+
+"Try again" re-attempts the sync. The Classroom link opens classroom.google.com in a new tab as a fallback.
+
+**Decision log:** Option B (store last sync in browser localStorage) chosen over Option A (pure error screen with no data). Rationale: a student who used OnTrack yesterday shouldn't lose their plan because of a 10-minute Classroom outage. localStorage keeps data on-device only — no server, no FERPA exposure. Open question 2 resolved.
+
+---
+
+## Task completion mechanism
+
+Tapping any assignment in the Daily Plan opens a **floating status popup** near the tap point. Five options:
+
+| Option | What OnTrack does |
+|---|---|
+| ✓ Done early | Marks complete, removes from tonight's plan, pulls in the next queued item if time allows |
+| ⏱ Taking longer → tell assistant | Opens the Assistant screen with the assignment pre-filled; student explains and the plan adjusts through conversation |
+| 🏁 Finished | Marks complete, removes from tonight's plan |
+| ↩ Incomplete | Removes from tonight's plan, reschedules as first priority tomorrow |
+| ☕ Need a break | Moves this assignment to the bottom of tonight's list; OnTrack continues with the next item and returns to this one after |
+
+**Decision log:** A simple checkbox was ruled out — all three interview scenarios (Jayden, Jovan, Luis) required students to report *what* happened (ran long, skipped, incomplete) for OnTrack to replan correctly. A checkbox only captures done/not-done. The popup was chosen over an inline-expand mechanism because it preserves "Need a break" as a distinct action — pausing without abandoning an assignment is a real student need. Open question 3 resolved.
