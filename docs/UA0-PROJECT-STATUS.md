@@ -14,11 +14,11 @@ It records where the project is in the UA Framework process so any agent invocat
 
 ## Current stage
 
-Stage 3 — Specification
+Stage 4 — Wireframing
 
 ## Current pass or activity
 
-Screen inventory
+HTML prototype — first pass (all 7 screens built, screens linked, placeholder content from UA6)
 
 ## Positioning statement status
 
@@ -42,6 +42,8 @@ One line per clause. Status values: `not started` | `drafted from belief` | `dra
 - 2026-05-12 Stage 1 — Discovery complete (all clauses evidenced or confirmed)
 - 2026-05-12 Stage 2 — Analysis complete (ua5 written: Landscape, Stakeholders/Users, Jobs/Scenarios, all exit criteria met)
 - 2026-05-20 ua5-stage-2-analysis.md recovered from session transcript and saved to workspace
+- 2026-05-26 Stage 3 — Specification complete (ua6-specification.md finalized: 7 screens with descriptions, requirements, constraints, open questions)
+- 2026-05-26 Stage 4 — Wireframing started; wireframes/index.html created with all 7 screens as clickable HTML prototype
 
 ## Known gaps
 
