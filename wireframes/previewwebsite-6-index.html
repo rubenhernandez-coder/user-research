@@ -1,0 +1,2742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnTrack — Prototype v6</title>
+  <style>
+    /* ═══════════════════════════════════════════
+       DESIGN TOKENS
+    ═══════════════════════════════════════════ */
+    :root {
+      --bg:           #f0f2f7;
+      --surface:      #ffffff;
+      --surface-2:    #f8f9fb;
+      --border:       #e8eaf0;
+      --text:         #111827;
+      --text-muted:   #6b7280;
+      --text-subtle:  #9ca3af;
+
+      --accent:       #4f6ef7;
+      --accent-light: #eef0fe;
+      --accent-dark:  #3a56d4;
+
+      --bio:          #10b981;
+      --bio-light:    #d1fae5;
+      --bio-dark:     #065f46;
+      --alg:          #3b82f6;
+      --alg-light:    #dbeafe;
+      --alg-dark:     #1e3a8a;
+      --hist:         #f59e0b;
+      --hist-light:   #fef3c7;
+      --hist-dark:    #78350f;
+      --eng:          #8b5cf6;
+      --eng-light:    #ede9fe;
+      --eng-dark:     #4c1d95;
+
+      --r-sm:   6px;
+      --r:      10px;
+      --r-lg:   16px;
+      --r-xl:   20px;
+
+      --shadow-xs: 0 1px 3px rgba(0,0,0,0.06);
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+      --shadow:    0 4px 16px rgba(0,0,0,0.10);
+      --shadow-lg: 0 8px 28px rgba(0,0,0,0.13);
+    }
+
+    /* ═══════════════════════════════════════════
+       RESET + BASE
+    ═══════════════════════════════════════════ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input, select { font-family: inherit; }
+
+    /* ═══════════════════════════════════════════
+       PROTO BANNER
+    ═══════════════════════════════════════════ */
+    #proto-banner {
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 7px 16px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      flex-shrink: 0;
+    }
+
+    .demo-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      border-radius: 4px;
+      padding: 3px 10px;
+      font-size: 10px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .demo-btn:hover { background: rgba(255,255,255,0.25); }
+
+    /* ═══════════════════════════════════════════
+       ROOT LAYOUT
+    ═══════════════════════════════════════════ */
+    #root {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* ═══════════════════════════════════════════
+       LOGIN SCREEN
+    ═══════════════════════════════════════════ */
+    #login-screen {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #eef0fe 0%, #f0f2f7 60%, #fef3c7 100%);
+    }
+
+    .login-card {
+      background: var(--surface);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 48px 44px;
+      width: 340px;
+      text-align: center;
+    }
+
+    .login-logo {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .login-tagline {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+    }
+
+    .btn-google {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 13px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--r);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+
+    .btn-google:hover {
+      background: var(--surface-2);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .google-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cpath fill='%234285F4' d='M47.5 24.6c0-1.6-.1-3.1-.4-4.6H24v8.7h13.2c-.6 3-2.3 5.5-4.9 7.2v6h7.9c4.6-4.3 7.3-10.6 7.3-17.3z'/%3E%3Cpath fill='%2334A853' d='M24 48c6.5 0 12-2.1 16-5.8l-7.9-6c-2.2 1.5-5 2.3-8.1 2.3-6.2 0-11.5-4.2-13.4-9.9H2.5v6.2C6.5 42.6 14.7 48 24 48z'/%3E%3Cpath fill='%23FBBC05' d='M10.6 28.6c-.5-1.5-.8-3-.8-4.6s.3-3.1.8-4.6v-6.2H2.5C.9 16.4 0 20.1 0 24s.9 7.6 2.5 10.8l8.1-6.2z'/%3E%3Cpath fill='%23EA4335' d='M24 9.5c3.5 0 6.6 1.2 9.1 3.5l6.8-6.8C35.9 2.4 30.4 0 24 0 14.7 0 6.5 5.4 2.5 13.2l8.1 6.2C12.5 13.7 17.8 9.5 24 9.5z'/%3E%3C/svg%3E") center/contain no-repeat;
+    }
+
+    .login-note {
+      font-size: 11px;
+      color: var(--text-subtle);
+      font-style: italic;
+      margin-top: 14px;
+    }
+
+    /* ═══════════════════════════════════════════
+       APP SHELL
+    ═══════════════════════════════════════════ */
+    #app-shell {
+      flex: 1;
+      display: none;
+      overflow: hidden;
+    }
+
+    .app-layout {
+      display: flex;
+      height: 100%;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 212px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      box-shadow: var(--shadow-xs);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar-logo {
+      padding: 18px 20px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      color: var(--accent);
+    }
+
+    .sidebar-logo .beta {
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: var(--text-muted);
+      margin-left: 6px;
+    }
+
+    .sidebar-nav {
+      flex: 1;
+      padding: 10px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 9px 12px;
+      border-radius: var(--r);
+      cursor: pointer;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 2px;
+      user-select: none;
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .nav-item:hover { background: var(--surface-2); color: var(--text); }
+
+    .nav-item.active {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .nav-icon { font-size: 16px; width: 20px; text-align: center; }
+
+    .sidebar-bottom {
+      padding: 10px 10px 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── Main column ── */
+    .main-col {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Sync failure banner (returning user) ── */
+    #sync-banner {
+      display: none;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 20px;
+      background: #fffbeb;
+      border-bottom: 1px solid #fde68a;
+      font-size: 12px;
+      font-weight: 500;
+      color: #78350f;
+      flex-shrink: 0;
+    }
+
+    #sync-banner.visible { display: flex; }
+
+    .sync-icon { font-size: 15px; flex-shrink: 0; }
+    .sync-text { flex: 1; }
+    .sync-text strong { font-weight: 700; }
+
+    .sync-retry {
+      padding: 5px 12px;
+      border: 1.5px solid #f59e0b;
+      background: transparent;
+      border-radius: var(--r-sm);
+      font-size: 11px;
+      font-weight: 700;
+      color: #78350f;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.12s;
+    }
+
+    .sync-retry:hover { background: #fef3c7; }
+
+    .sync-dismiss {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      color: #92400e;
+      opacity: 0.6;
+      padding: 0 0 0 4px;
+      line-height: 1;
+      transition: opacity 0.12s;
+    }
+
+    .sync-dismiss:hover { opacity: 1; }
+
+    /* ── Screen container ── */
+    #screen-container {
+      flex: 1;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── Screens ── */
+    .screen {
+      display: none;
+      height: 100%;
+      flex-direction: column;
+    }
+
+    .screen.active { display: flex; }
+
+    /* page header shared style */
+    .page-header {
+      padding: 20px 24px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .page-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 3px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SHARED COMPONENTS
+    ═══════════════════════════════════════════ */
+
+    /* Toggle switch */
+    .toggle-switch {
+      width: 38px;
+      height: 22px;
+      background: var(--border);
+      border-radius: 11px;
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .toggle-switch.on { background: var(--accent); }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: left 0.2s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    .toggle-switch.on::after { left: 18px; }
+
+    /* Badges */
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 9px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .badge-progress { background: var(--alg-light); color: var(--alg-dark); }
+    .badge-upcoming { background: var(--surface-2); color: var(--text-muted); border: 1px solid var(--border); }
+    .badge-done     { background: var(--bio-light);  color: var(--bio-dark); }
+
+    /* Class dot */
+    .class-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .class-dot.bio  { background: var(--bio); }
+    .class-dot.alg  { background: var(--alg); }
+    .class-dot.hist { background: var(--hist); }
+    .class-dot.eng  { background: var(--eng); }
+
+    /* Plan item card */
+    .plan-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 11px 13px 11px 17px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.12s, transform 0.1s;
+    }
+
+    .plan-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+    }
+
+    .plan-item.bio::before  { background: var(--bio); }
+    .plan-item.alg::before  { background: var(--alg); }
+    .plan-item.hist::before { background: var(--hist); }
+    .plan-item.eng::before  { background: var(--eng); }
+
+    .plan-item:hover { box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+
+    .plan-item-class {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 3px;
+    }
+
+    .plan-item.bio  .plan-item-class { color: var(--bio); }
+    .plan-item.alg  .plan-item-class { color: var(--alg); }
+    .plan-item.hist .plan-item-class { color: var(--hist); }
+    .plan-item.eng  .plan-item-class { color: var(--eng); }
+
+    .plan-item-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 5px;
+    }
+
+    .plan-item-meta {
+      display: flex;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Buttons */
+    .btn-primary {
+      padding: 9px 20px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.12s;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+
+    .btn-secondary {
+      padding: 9px 16px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: background 0.12s;
+    }
+
+    .btn-secondary:hover { background: var(--surface-2); }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 1: CALENDAR
+    ═══════════════════════════════════════════ */
+    #screen-calendar {
+      flex-direction: row !important;
+    }
+
+    /* Calendar main pane */
+    .cal-main {
+      flex: 1;
+      min-width: 0;
+      padding: 20px 24px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cal-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-shrink: 0;
+    }
+
+    .cal-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .cal-controls { display: flex; align-items: center; gap: 8px; }
+
+    /* View toggle */
+    .view-toggle {
+      display: flex;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 3px;
+      gap: 2px;
+    }
+
+    .toggle-btn {
+      padding: 4px 10px;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: background 0.12s, color 0.12s;
+    }
+
+    .toggle-btn.active {
+      background: var(--surface);
+      color: var(--text);
+      box-shadow: var(--shadow-xs);
+    }
+
+    /* Add assignment button */
+    .add-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+      transition: background 0.12s;
+    }
+
+    .add-btn:hover { background: var(--accent-dark); }
+
+    /* Calendar views */
+    .cal-view { display: none; flex: 1; min-height: 0; }
+    .cal-view.active { display: flex; flex-direction: column; }
+
+    /* ── Week view ── */
+    .cal-grid {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cal-header-row {
+      display: grid;
+      grid-template-columns: 52px repeat(7, 1fr);
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .cal-day-head {
+      padding: 9px 8px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-right: 1px solid var(--border);
+    }
+
+    .cal-day-head:last-child { border-right: none; }
+    .cal-day-head.today { color: var(--accent); background: var(--accent-light); }
+
+    .cal-grid-body { flex: 1; overflow: auto; }
+
+    .cal-row {
+      display: grid;
+      grid-template-columns: 52px repeat(7, 1fr);
+    }
+
+    .cal-cell {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      min-height: 52px;
+      padding: 5px;
+    }
+
+    .cal-cell:last-child { border-right: none; }
+
+    .cal-cell.time-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      padding-top: 6px;
+      text-align: right;
+      padding-right: 8px;
+      border-right: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+
+    .cal-chip {
+      display: block;
+      border-radius: var(--r-sm);
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 3px;
+      cursor: pointer;
+      transition: opacity 0.12s;
+      border-left: 3px solid;
+    }
+
+    .cal-chip:hover { opacity: 0.8; }
+    .cal-chip small { display: block; font-size: 10px; opacity: 0.75; margin-top: 1px; }
+
+    .cal-chip.bio  { background: var(--bio-light);  color: var(--bio-dark);  border-left-color: var(--bio); }
+    .cal-chip.alg  { background: var(--alg-light);  color: var(--alg-dark);  border-left-color: var(--alg); }
+    .cal-chip.hist { background: var(--hist-light); color: var(--hist-dark); border-left-color: var(--hist); }
+    .cal-chip.eng  { background: var(--eng-light);  color: var(--eng-dark);  border-left-color: var(--eng); }
+
+    /* ── Day view ── */
+    .day-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      flex-shrink: 0;
+    }
+
+    .day-timeline {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex: 1;
+      display: grid;
+      grid-template-columns: 58px 1fr;
+    }
+
+    .day-time-col { border-right: 1px solid var(--border); }
+
+    .day-time-slot {
+      height: 64px;
+      padding: 7px 10px 0 0;
+      text-align: right;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-subtle);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .day-events-col { position: relative; overflow: hidden; }
+
+    .day-hour-line { height: 64px; border-bottom: 1px solid var(--border); }
+
+    .day-event {
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      border-radius: var(--r);
+      padding: 7px 12px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: opacity 0.12s, box-shadow 0.12s;
+      border-left-width: 4px;
+      border-left-style: solid;
+    }
+
+    .day-event:hover { opacity: 0.9; box-shadow: var(--shadow-sm); }
+
+    .day-event.bio  { background: var(--bio-light);  border-left-color: var(--bio);  color: var(--bio-dark); }
+    .day-event.alg  { background: var(--alg-light);  border-left-color: var(--alg);  color: var(--alg-dark); }
+    .day-event.hist { background: var(--hist-light); border-left-color: var(--hist); color: var(--hist-dark); }
+    .day-event.eng  { background: var(--eng-light);  border-left-color: var(--eng);  color: var(--eng-dark); }
+
+    .day-event-class { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
+    .day-event-name  { font-size: 12px; font-weight: 700; margin: 2px 0 1px; }
+    .day-event-time  { font-size: 10px; opacity: 0.7; }
+
+    .day-now-line {
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--accent);
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .day-now-line::before {
+      content: '';
+      position: absolute;
+      left: -4px; top: -4px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    /* ── Month view ── */
+    .cal-month {
+      background: var(--surface);
+      border-radius: var(--r-lg);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cal-month-header-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .cal-month-head {
+      padding: 9px 8px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      border-right: 1px solid var(--border);
+    }
+
+    .cal-month-head:last-child { border-right: none; }
+
+    .cal-month-body {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      flex: 1;
+      overflow: auto;
+    }
+
+    .cal-month-cell {
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 7px 8px;
+      min-height: 90px;
+    }
+
+    .cal-month-cell:nth-child(7n) { border-right: none; }
+    .cal-month-cell.other-month { background: var(--surface-2); }
+    .cal-month-cell.other-month .month-day-num { color: var(--text-subtle); }
+
+    .month-day-num {
+      font-size: 12px;
+      font-weight: 700;
+      width: 26px;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .month-day-num.today { background: var(--accent); color: #fff; }
+
+    .month-chip {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      cursor: pointer;
+      transition: opacity 0.12s;
+    }
+
+    .month-chip:hover { opacity: 0.8; }
+
+    .month-chip.bio  { background: var(--bio-light);  color: var(--bio-dark); }
+    .month-chip.alg  { background: var(--alg-light);  color: var(--alg-dark); }
+    .month-chip.hist { background: var(--hist-light); color: var(--hist-dark); }
+    .month-chip.eng  { background: var(--eng-light);  color: var(--eng-dark); }
+
+    /* ── Daily Plan panel ── */
+    .daily-plan-panel {
+      width: 272px;
+      flex-shrink: 0;
+      background: var(--surface);
+      border-left: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      padding: 16px 18px 12px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .panel-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .plan-list {
+      flex: 1;
+      overflow: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .panel-chat {
+      padding: 12px;
+      border-top: 1px solid var(--border);
+      background: var(--surface-2);
+      flex-shrink: 0;
+    }
+
+    .chat-row { display: flex; gap: 6px; }
+
+    .chat-input {
+      flex: 1;
+      padding: 8px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-size: 12px;
+      background: var(--surface);
+      transition: border-color 0.12s;
+    }
+
+    .chat-input:focus { outline: none; border-color: var(--accent); }
+
+    .chat-send {
+      padding: 8px 13px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 700;
+      transition: background 0.12s;
+    }
+
+    .chat-send:hover { background: var(--accent-dark); }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 2: DAILY PLAN (STANDALONE)
+    ═══════════════════════════════════════════ */
+    .standalone-plan {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+    }
+
+    .standalone-plan-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 380px;
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 3: CLASSES
+    ═══════════════════════════════════════════ */
+    .classes-body {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+    }
+
+    .class-folder {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .folder-header {
+      padding: 13px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      transition: background 0.12s;
+    }
+
+    .folder-header:hover { background: var(--surface-2); }
+
+    .folder-header-left { display: flex; align-items: center; gap: 10px; }
+
+    .folder-chevron {
+      font-size: 11px;
+      color: var(--text-subtle);
+      transition: transform 0.15s;
+    }
+
+    .folder-chevron.open { transform: rotate(90deg); }
+
+    .folder-body { display: none; border-top: 1px solid var(--border); }
+    .folder-body.open { display: block; }
+
+    /* class settings row inside folder */
+    .class-settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+      gap: 12px;
+    }
+
+    .class-settings-left { display: flex; align-items: center; gap: 10px; }
+
+    .cumulative-icon {
+      font-size: 14px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .cumulative-icon.bio  { background: var(--bio-light); }
+    .cumulative-icon.alg  { background: var(--alg-light); }
+    .cumulative-icon.hist { background: var(--hist-light); }
+    .cumulative-icon.eng  { background: var(--eng-light); }
+
+    .class-settings-label { font-size: 12px; font-weight: 600; }
+    .class-settings-desc  { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+
+    /* assignment table */
+    .asgn-row {
+      display: grid;
+      grid-template-columns: 1fr 90px 72px 100px;
+      padding: 10px 18px;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+
+    .asgn-row:hover { background: var(--surface-2); }
+    .asgn-row:last-child { border-bottom: none; }
+
+    .asgn-row.asgn-header {
+      background: var(--surface-2);
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: default;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+    .asgn-row.asgn-header:hover { background: var(--surface-2); }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 4: ASSIGNMENT DETAILS
+    ═══════════════════════════════════════════ */
+    .details-body {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+      max-width: 600px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-bottom: 18px;
+      transition: color 0.12s;
+    }
+
+    .back-link:hover { color: var(--accent); }
+
+    .details-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .details-class-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 22px;
+    }
+
+    .details-class-tag.bio  { background: var(--bio-light);  color: var(--bio-dark); }
+    .details-class-tag.alg  { background: var(--alg-light);  color: var(--alg-dark); }
+    .details-class-tag.hist { background: var(--hist-light); color: var(--hist-dark); }
+    .details-class-tag.eng  { background: var(--eng-light);  color: var(--eng-dark); }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .detail-field {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 12px 14px;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .detail-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .detail-value { font-size: 14px; font-weight: 600; color: var(--text); }
+
+    .detail-value input {
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      width: 100%;
+      background: transparent;
+      padding: 0;
+      color: var(--text);
+    }
+
+    .detail-value input:focus { outline: none; border-bottom: 2px solid var(--accent); }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .toggle-label { font-size: 13px; font-weight: 600; }
+    .toggle-desc  { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    .chunks-preview {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 14px;
+      margin-top: 14px;
+    }
+
+    .chunks-preview-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .chunk-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 7px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .chunk-row:last-child { border-bottom: none; }
+    .chunk-row span:last-child { color: var(--text-muted); }
+
+    .chunks-note {
+      font-size: 11px;
+      color: var(--text-subtle);
+      margin-top: 10px;
+    }
+
+    .status-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+
+    .status-btns-row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .status-btn-inline {
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: background 0.12s, border-color 0.12s, color 0.12s;
+    }
+
+    .status-btn-inline:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 5: ASSISTANT
+    ═══════════════════════════════════════════ */
+    .asst-header {
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      background: var(--bg);
+    }
+
+    .message { max-width: 78%; }
+    .message.ai { margin-right: auto; }
+    .message.user-msg { margin-left: auto; }
+
+    .message-label {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--text-subtle);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .message.user-msg .message-label { text-align: right; }
+
+    .message-bubble {
+      padding: 12px 16px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .message.ai .message-bubble {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px var(--r-lg) var(--r-lg) var(--r-lg);
+      box-shadow: var(--shadow-xs);
+    }
+
+    .message.user-msg .message-bubble {
+      background: var(--accent);
+      color: #fff;
+      border-radius: var(--r-lg) 4px var(--r-lg) var(--r-lg);
+    }
+
+    .chat-bar {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+    }
+
+    .chat-bar .chat-row { gap: 10px; }
+
+    .chat-bar .chat-input {
+      flex: 1;
+      padding: 11px 16px;
+      font-size: 13px;
+      border-radius: 24px;
+      border: 1.5px solid var(--border);
+      background: var(--surface-2);
+      transition: border-color 0.12s;
+    }
+
+    .chat-bar .chat-input:focus { outline: none; border-color: var(--accent); }
+
+    .chat-bar .chat-send {
+      padding: 11px 18px;
+      font-size: 13px;
+      border-radius: 24px;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background 0.12s;
+    }
+
+    .chat-bar .chat-send:hover { background: var(--accent-dark); }
+
+    /* ═══════════════════════════════════════════
+       SCREEN 6: SETTINGS
+    ═══════════════════════════════════════════ */
+    .settings-body {
+      flex: 1;
+      overflow: auto;
+      padding: 24px;
+      max-width: 540px;
+    }
+
+    .settings-section { margin-bottom: 26px; }
+
+    .settings-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 10px;
+    }
+
+    .settings-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+    }
+
+    .settings-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .settings-row:last-child { border-bottom: none; }
+
+    .settings-row-label { font-size: 13px; font-weight: 600; }
+    .settings-row-desc  { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    .settings-control select,
+    .settings-control input[type="time"] {
+      border: 1.5px solid var(--border);
+      padding: 6px 10px;
+      border-radius: var(--r-sm);
+      font-size: 12px;
+      font-weight: 500;
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    .disconnect-btn {
+      padding: 7px 14px;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      border-radius: var(--r);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      transition: border-color 0.12s, color 0.12s;
+    }
+
+    .disconnect-btn:hover { border-color: #ef4444; color: #ef4444; }
+
+    /* ═══════════════════════════════════════════
+       HIGH CONTRAST MODE
+    ═══════════════════════════════════════════ */
+    body.high-contrast {
+      --bg:           #000000;
+      --surface:      #0d0d0d;
+      --surface-2:    #1a1a1a;
+      --border:       #ffffff;
+      --text:         #ffffff;
+      --text-muted:   #cccccc;
+      --text-subtle:  #999999;
+      --accent:       #6699ff;
+      --accent-light: #001133;
+      --accent-dark:  #4477ee;
+    }
+
+    /* ═══════════════════════════════════════════
+       COLOR-BLIND FRIENDLY MODE (deuteranopia-safe)
+    ═══════════════════════════════════════════ */
+    body.colorblind {
+      --bio:       #e69f00;
+      --bio-light: #fff0cc;
+      --bio-dark:  #7a5200;
+      --alg:       #0072b2;
+      --alg-light: #cce5f5;
+      --alg-dark:  #003f66;
+      --hist:      #009e73;
+      --hist-light:#ccf0e5;
+      --hist-dark: #005740;
+      --eng:       #cc79a7;
+      --eng-light: #f5e0ee;
+      --eng-dark:  #7a3a62;
+    }
+
+    /* ═══════════════════════════════════════════
+       TOAST NOTIFICATION
+    ═══════════════════════════════════════════ */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--text);
+      color: var(--surface);
+      padding: 10px 18px;
+      border-radius: var(--r);
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: var(--shadow-lg);
+      z-index: 1000;
+      opacity: 0;
+      transition: transform 0.25s ease, opacity 0.25s ease;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    #toast.visible {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ═══════════════════════════════════════════
+       PLAN ITEM STATES
+    ═══════════════════════════════════════════ */
+    .plan-item.done {
+      opacity: 0.4;
+      pointer-events: none;
+    }
+
+    .plan-item.done .plan-item-name { text-decoration: line-through; }
+
+    .plan-item .reschedule-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--hist);
+      margin-top: 4px;
+    }
+
+    /* AI typing indicator */
+    .typing-bubble {
+      display: flex;
+      gap: 4px;
+      padding: 14px 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px var(--r-lg) var(--r-lg) var(--r-lg);
+      box-shadow: var(--shadow-xs);
+      width: fit-content;
+    }
+
+    .typing-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--text-subtle);
+      animation: typing 1.2s infinite;
+    }
+
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes typing {
+      0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+      30% { opacity: 1; transform: translateY(-3px); }
+    }
+
+    /* ═══════════════════════════════════════════
+       SYNC ERROR SCREEN (FIRST-TIME)
+    ═══════════════════════════════════════════ */
+    #sync-error-screen {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 50;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #sync-error-screen.visible {
+      display: flex;
+    }
+
+    .sync-error-card {
+      background: var(--surface);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 44px 40px;
+      max-width: 400px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .sync-error-icon   { font-size: 36px; margin-bottom: 16px; }
+    .sync-error-title  { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .sync-error-body   { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 28px; }
+
+    .sync-error-link {
+      font-size: 12px;
+      color: var(--accent);
+      cursor: pointer;
+      text-decoration: underline;
+      margin-top: 12px;
+      display: block;
+    }
+
+    /* ═══════════════════════════════════════════
+       STATUS POPUP
+    ═══════════════════════════════════════════ */
+    #status-popup {
+      position: fixed;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 10px;
+      width: 230px;
+      box-shadow: var(--shadow-lg);
+      z-index: 400;
+      display: none;
+    }
+
+    .status-popup-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 8px 8px;
+    }
+
+    .status-btn {
+      display: block;
+      width: 100%;
+      padding: 8px 12px;
+      margin-bottom: 3px;
+      border: none;
+      background: transparent;
+      border-radius: var(--r-sm);
+      cursor: pointer;
+      text-align: left;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text);
+      transition: background 0.1s;
+    }
+
+    .status-btn:last-child { margin-bottom: 0; }
+    .status-btn:hover { background: var(--surface-2); }
+
+    /* ═══════════════════════════════════════════
+       ADD ASSIGNMENT OVERLAY
+    ═══════════════════════════════════════════ */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+    }
+
+    .overlay.visible { display: flex; }
+
+    .overlay-card {
+      background: var(--surface);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 28px;
+      width: 380px;
+    }
+
+    .overlay-title {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: -0.4px;
+      margin-bottom: 20px;
+    }
+
+    .form-field { margin-bottom: 14px; }
+
+    .form-label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 5px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+      transition: border-color 0.12s;
+    }
+
+    .form-input:focus { outline: none; border-color: var(--accent); }
+
+    .form-row { display: flex; gap: 10px; }
+    .form-row .form-field { flex: 1; }
+
+    .form-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="root">
+
+  <!-- ── Proto banner ── -->
+  <div id="proto-banner">
+    <span>OnTrack — Interactive Prototype v6 &nbsp;·&nbsp; Click elements to navigate</span>
+    <span style="opacity:0.4">|</span>
+    <span style="font-size:10px; opacity:0.8">Preview states:</span>
+    <button class="demo-btn" onclick="showSyncBanner()">⚠ Sync banner</button>
+    <button class="demo-btn" onclick="showSyncError()">📡 First-time error</button>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       LOGIN SCREEN
+  ════════════════════════════════════════ -->
+  <div id="login-screen">
+    <div class="login-card">
+      <div class="login-logo">OnTrack</div>
+      <div class="login-tagline">Your smart study planner</div>
+      <button class="btn-google" onclick="goToApp()">
+        <span class="google-icon"></span>
+        Continue with Google
+      </button>
+      <div class="login-note">First sign-in pulls your assignments from Google Classroom</div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════════
+       APP SHELL
+  ════════════════════════════════════════ -->
+  <div id="app-shell">
+    <div class="app-layout">
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-logo">OnTrack <span class="beta">beta</span></div>
+        <nav class="sidebar-nav">
+          <a class="nav-item" id="nav-calendar"    onclick="navigate('calendar')">
+            <span class="nav-icon">📅</span> Calendar
+          </a>
+          <a class="nav-item" id="nav-classes"     onclick="navigate('classes')">
+            <span class="nav-icon">📚</span> Classes
+          </a>
+          <a class="nav-item" id="nav-assistant"   onclick="navigate('assistant')">
+            <span class="nav-icon">💬</span> Assistant
+          </a>
+          <a class="nav-item" id="nav-daily-plan"  onclick="navigate('daily-plan')">
+            <span class="nav-icon">✅</span> Daily Plan
+          </a>
+        </nav>
+        <div class="sidebar-bottom">
+          <a class="nav-item" id="nav-settings"    onclick="navigate('settings')">
+            <span class="nav-icon">⚙️</span> Settings
+          </a>
+        </div>
+      </div>
+
+      <!-- Main column -->
+      <div class="main-col">
+
+        <!-- Sync failure banner (returning user) -->
+        <div id="sync-banner">
+          <span class="sync-icon">⚠️</span>
+          <span class="sync-text">
+            <strong>Couldn't sync with Google Classroom.</strong>
+            Showing your assignments from last night at 9:41 PM — they may be out of date.
+          </span>
+          <button class="sync-retry" onclick="hideSyncBanner()">Retry</button>
+          <button class="sync-dismiss" onclick="hideSyncBanner()" title="Dismiss">×</button>
+        </div>
+
+        <!-- Screen container -->
+        <div id="screen-container">
+
+          <!-- ─────────────────────────────────────
+               SCREEN: CALENDAR
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-calendar" style="flex-direction:row !important;">
+
+            <!-- Calendar main pane -->
+            <div class="cal-main">
+
+              <!-- Toolbar -->
+              <div class="cal-toolbar">
+                <span class="cal-title" id="cal-title">May 2026</span>
+                <div class="cal-controls">
+                  <div class="view-toggle">
+                    <button class="toggle-btn" id="btn-day"   onclick="switchView('day')">Day</button>
+                    <button class="toggle-btn active" id="btn-week"  onclick="switchView('week')">Week</button>
+                    <button class="toggle-btn" id="btn-month" onclick="switchView('month')">Month</button>
+                  </div>
+                  <button class="add-btn" onclick="showOverlay()">＋ Add assignment</button>
+                </div>
+              </div>
+
+              <!-- DAY VIEW -->
+              <div class="cal-view" id="view-day">
+                <div class="day-label">Tuesday, May 26</div>
+                <div class="day-timeline">
+                  <div class="day-time-col">
+                    <div class="day-time-slot">3 PM</div>
+                    <div class="day-time-slot">4 PM</div>
+                    <div class="day-time-slot">5 PM</div>
+                    <div class="day-time-slot">6 PM</div>
+                    <div class="day-time-slot">7 PM</div>
+                    <div class="day-time-slot">8 PM</div>
+                    <div class="day-time-slot">9 PM</div>
+                    <div class="day-time-slot">10 PM</div>
+                  </div>
+                  <div class="day-events-col">
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <div class="day-hour-line"></div>
+                    <!-- Now line (~5:20 PM = 2h 20m from 3 PM = 149px) -->
+                    <div class="day-now-line" style="top: 149px;"></div>
+                    <!-- Algebra HW 9: 5:00–5:45 PM → top 130px, height 46px -->
+                    <div class="day-event alg" style="top:130px; height:46px;" onclick="navigate('assignment-details')">
+                      <div class="day-event-class">Algebra II</div>
+                      <div class="day-event-name">Homework 9</div>
+                      <div class="day-event-time">5:00 – 5:45 PM · 45 min</div>
+                    </div>
+                    <!-- Bio Lab Report: 7:00–8:30 PM → top 258px, height 94px -->
+                    <div class="day-event bio" style="top:258px; height:94px;" onclick="navigate('assignment-details')">
+                      <div class="day-event-class">Biology</div>
+                      <div class="day-event-name">Lab Report — Cell Membranes</div>
+                      <div class="day-event-time">7:00 – 8:30 PM · 90 min</div>
+                    </div>
+                    <!-- History Essay ch.1: 8:30–9:15 PM → top 354px, height 46px -->
+                    <div class="day-event hist" style="top:354px; height:46px;" onclick="navigate('assignment-details')">
+                      <div class="day-event-class">History</div>
+                      <div class="day-event-name">Essay — chunk 1 of 3</div>
+                      <div class="day-event-time">8:30 – 9:15 PM · 45 min</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- WEEK VIEW (default) -->
+              <div class="cal-view active" id="view-week">
+                <div class="cal-grid">
+                  <div class="cal-header-row">
+                    <div class="cal-day-head"></div>
+                    <div class="cal-day-head">Mon 25</div>
+                    <div class="cal-day-head today">Tue 26</div>
+                    <div class="cal-day-head">Wed 27</div>
+                    <div class="cal-day-head">Thu 28</div>
+                    <div class="cal-day-head">Fri 29</div>
+                    <div class="cal-day-head">Sat 30</div>
+                    <div class="cal-day-head">Sun 31</div>
+                  </div>
+                  <div class="cal-grid-body">
+                    <!-- DUE row -->
+                    <div class="cal-row">
+                      <div class="cal-cell time-label">DUE</div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell">
+                        <div class="cal-chip bio" onclick="navigate('assignment-details')">Bio Lab Report</div>
+                      </div>
+                      <div class="cal-cell">
+                        <div class="cal-chip alg" onclick="navigate('assignment-details')">Algebra HW 9</div>
+                      </div>
+                      <div class="cal-cell">
+                        <div class="cal-chip hist" onclick="navigate('assignment-details')">History Essay</div>
+                      </div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                    </div>
+                    <!-- 3 PM -->
+                    <div class="cal-row">
+                      <div class="cal-cell time-label">3 PM</div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                    </div>
+                    <!-- 5 PM -->
+                    <div class="cal-row">
+                      <div class="cal-cell time-label">5 PM</div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell">
+                        <div class="cal-chip alg">Algebra HW 9<small>45 min</small></div>
+                      </div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell">
+                        <div class="cal-chip hist">History Essay ch.1<small>45 min</small></div>
+                      </div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                    </div>
+                    <!-- 7 PM -->
+                    <div class="cal-row">
+                      <div class="cal-cell time-label">7 PM</div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell">
+                        <div class="cal-chip bio">Bio Lab Report<small>90 min</small></div>
+                      </div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell">
+                        <div class="cal-chip hist">History Essay ch.2<small>45 min</small></div>
+                      </div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                    </div>
+                    <!-- 9 PM -->
+                    <div class="cal-row">
+                      <div class="cal-cell time-label">9 PM</div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                      <div class="cal-cell"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- MONTH VIEW -->
+              <div class="cal-view" id="view-month">
+                <div class="cal-month">
+                  <div class="cal-month-header-row">
+                    <div class="cal-month-head">Mon</div>
+                    <div class="cal-month-head">Tue</div>
+                    <div class="cal-month-head">Wed</div>
+                    <div class="cal-month-head">Thu</div>
+                    <div class="cal-month-head">Fri</div>
+                    <div class="cal-month-head">Sat</div>
+                    <div class="cal-month-head">Sun</div>
+                  </div>
+                  <div class="cal-month-body">
+                    <!-- Row 1: Apr 27–30 · May 1–3 -->
+                    <div class="cal-month-cell other-month"><div class="month-day-num">27</div></div>
+                    <div class="cal-month-cell other-month"><div class="month-day-num">28</div></div>
+                    <div class="cal-month-cell other-month"><div class="month-day-num">29</div></div>
+                    <div class="cal-month-cell other-month"><div class="month-day-num">30</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">1</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">2</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">3</div></div>
+                    <!-- Row 2: May 4–10 -->
+                    <div class="cal-month-cell"><div class="month-day-num">4</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">5</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">6</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">7</div></div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">8</div>
+                      <div class="month-chip eng">Reading Response #3</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">9</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">10</div></div>
+                    <!-- Row 3: May 11–17 -->
+                    <div class="cal-month-cell"><div class="month-day-num">11</div></div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">12</div>
+                      <div class="month-chip alg">Algebra Test</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">13</div></div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">14</div>
+                      <div class="month-chip bio">Ch.6 Quiz</div>
+                    </div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">15</div>
+                      <div class="month-chip eng">Essay Draft</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">16</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">17</div></div>
+                    <!-- Row 4: May 18–24 -->
+                    <div class="cal-month-cell"><div class="month-day-num">18</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">19</div></div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">20</div>
+                      <div class="month-chip hist">Mid-term Project</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">21</div></div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">22</div>
+                      <div class="month-chip alg">HW 8</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">23</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">24</div></div>
+                    <!-- Row 5: May 25–31 -->
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">25</div>
+                      <div class="month-chip hist">Essay study</div>
+                    </div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num today">26</div>
+                      <div class="month-chip bio">Lab Report study</div>
+                      <div class="month-chip alg">HW 9 study</div>
+                    </div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">27</div>
+                      <div class="month-chip bio">Lab Report DUE</div>
+                      <div class="month-chip hist">Essay study</div>
+                    </div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">28</div>
+                      <div class="month-chip alg">HW 9 DUE</div>
+                      <div class="month-chip hist">Essay study</div>
+                    </div>
+                    <div class="cal-month-cell">
+                      <div class="month-day-num">29</div>
+                      <div class="month-chip hist">Essay DUE</div>
+                    </div>
+                    <div class="cal-month-cell"><div class="month-day-num">30</div></div>
+                    <div class="cal-month-cell"><div class="month-day-num">31</div></div>
+                  </div>
+                </div>
+              </div>
+
+            </div><!-- /cal-main -->
+
+            <!-- Daily Plan panel -->
+            <div class="daily-plan-panel">
+              <div class="panel-header">
+                <div class="panel-title">Daily Plan</div>
+                <div class="panel-date">Tuesday, May 26</div>
+              </div>
+              <div class="plan-list">
+                <div class="plan-item bio" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">Biology</div>
+                  <div class="plan-item-name">Lab Report</div>
+                  <div class="plan-item-meta"><span>Due tomorrow</span><span>90 min</span></div>
+                </div>
+                <div class="plan-item alg" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">Algebra II</div>
+                  <div class="plan-item-name">Homework 9</div>
+                  <div class="plan-item-meta"><span>Due Wed</span><span>45 min</span></div>
+                </div>
+                <div class="plan-item hist" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">History</div>
+                  <div class="plan-item-name">Essay (chunk 1 of 3)</div>
+                  <div class="plan-item-meta"><span>Due Thu</span><span>45 min</span></div>
+                </div>
+              </div>
+              <div class="panel-chat">
+                <div class="chat-row">
+                  <input class="chat-input" id="panel-chat-input" type="text" placeholder="Tell the assistant..." onkeydown="if(event.key==='Enter') sendPanelMessage()">
+                  <button class="chat-send" onclick="sendPanelMessage()">→</button>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /screen-calendar -->
+
+          <!-- ─────────────────────────────────────
+               SCREEN: DAILY PLAN (standalone)
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-daily-plan">
+            <div class="page-header">
+              <div class="page-title">Daily Plan</div>
+              <div class="page-sub">Tuesday, May 26</div>
+            </div>
+            <div class="standalone-plan">
+              <div class="standalone-plan-list">
+                <div class="plan-item bio" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">Biology</div>
+                  <div class="plan-item-name">Lab Report</div>
+                  <div class="plan-item-meta"><span>Due tomorrow</span><span>90 min</span></div>
+                </div>
+                <div class="plan-item alg" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">Algebra II</div>
+                  <div class="plan-item-name">Homework 9</div>
+                  <div class="plan-item-meta"><span>Due Wed</span><span>45 min</span></div>
+                </div>
+                <div class="plan-item hist" onclick="showStatusPopup(event, this)">
+                  <div class="plan-item-class">History</div>
+                  <div class="plan-item-name">Essay (chunk 1 of 3)</div>
+                  <div class="plan-item-meta"><span>Due Thu</span><span>45 min</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ─────────────────────────────────────
+               SCREEN: CLASSES
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-classes">
+            <div class="page-header">
+              <div class="page-title">Classes</div>
+            </div>
+            <div class="classes-body">
+
+              <!-- Biology folder -->
+              <div class="class-folder">
+                <div class="folder-header" onclick="toggleFolder(this)">
+                  <div class="folder-header-left">
+                    <span class="class-dot bio"></span> Biology
+                  </div>
+                  <span class="folder-chevron">▶</span>
+                </div>
+                <div class="folder-body">
+                  <div class="class-settings-row">
+                    <div class="class-settings-left">
+                      <div class="cumulative-icon bio">🔗</div>
+                      <div>
+                        <div class="class-settings-label">Cumulative subject</div>
+                        <div class="class-settings-desc">OnTrack prioritizes this higher — topics build on each other</div>
+                      </div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                  </div>
+                  <div class="asgn-row asgn-header">
+                    <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Lab Report — Cell Membranes</span>
+                    <span>May 27</span>
+                    <span>90 min</span>
+                    <span><span class="badge badge-progress">In progress</span></span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Chapter 7 Reading</span>
+                    <span>Jun 2</span>
+                    <span>30 min</span>
+                    <span><span class="badge badge-upcoming">Upcoming</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Algebra II folder -->
+              <div class="class-folder">
+                <div class="folder-header" onclick="toggleFolder(this)">
+                  <div class="folder-header-left">
+                    <span class="class-dot alg"></span> Algebra II
+                  </div>
+                  <span class="folder-chevron">▶</span>
+                </div>
+                <div class="folder-body">
+                  <div class="class-settings-row">
+                    <div class="class-settings-left">
+                      <div class="cumulative-icon alg">🔗</div>
+                      <div>
+                        <div class="class-settings-label">Cumulative subject</div>
+                        <div class="class-settings-desc">OnTrack prioritizes this higher — topics build on each other</div>
+                      </div>
+                    </div>
+                    <div class="toggle-switch on" onclick="this.classList.toggle('on')"></div>
+                  </div>
+                  <div class="asgn-row asgn-header">
+                    <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Homework 9 — Quadratics</span>
+                    <span>May 28</span>
+                    <span>45 min</span>
+                    <span><span class="badge badge-progress">In progress</span></span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Quiz Review</span>
+                    <span>Jun 3</span>
+                    <span>60 min</span>
+                    <span><span class="badge badge-upcoming">Upcoming</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- History folder -->
+              <div class="class-folder">
+                <div class="folder-header" onclick="toggleFolder(this)">
+                  <div class="folder-header-left">
+                    <span class="class-dot hist"></span> History
+                  </div>
+                  <span class="folder-chevron">▶</span>
+                </div>
+                <div class="folder-body">
+                  <div class="class-settings-row">
+                    <div class="class-settings-left">
+                      <div class="cumulative-icon hist">🔗</div>
+                      <div>
+                        <div class="class-settings-label">Cumulative subject</div>
+                        <div class="class-settings-desc">OnTrack prioritizes this higher — topics build on each other</div>
+                      </div>
+                    </div>
+                    <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+                  </div>
+                  <div class="asgn-row asgn-header">
+                    <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Essay — Industrial Revolution</span>
+                    <span>May 29</span>
+                    <span>135 min</span>
+                    <span><span class="badge badge-progress">In progress</span></span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- English folder -->
+              <div class="class-folder">
+                <div class="folder-header" onclick="toggleFolder(this)">
+                  <div class="folder-header-left">
+                    <span class="class-dot eng"></span> English
+                  </div>
+                  <span class="folder-chevron">▶</span>
+                </div>
+                <div class="folder-body">
+                  <div class="class-settings-row">
+                    <div class="class-settings-left">
+                      <div class="cumulative-icon eng">🔗</div>
+                      <div>
+                        <div class="class-settings-label">Cumulative subject</div>
+                        <div class="class-settings-desc">OnTrack prioritizes this higher — topics build on each other</div>
+                      </div>
+                    </div>
+                    <div class="toggle-switch" onclick="this.classList.toggle('on')"></div>
+                  </div>
+                  <div class="asgn-row asgn-header">
+                    <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
+                  </div>
+                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                    <span>Reading Response #4</span>
+                    <span>Jun 5</span>
+                    <span>45 min</span>
+                    <span><span class="badge badge-upcoming">Upcoming</span></span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /screen-classes -->
+
+          <!-- ─────────────────────────────────────
+               SCREEN: ASSIGNMENT DETAILS
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-assignment-details">
+            <div class="page-header">
+              <span class="back-link" onclick="navigate('classes')">← Classes</span>
+            </div>
+            <div class="details-body">
+              <div class="details-title">Lab Report — Cell Membranes</div>
+              <div class="details-class-tag bio">
+                <span class="class-dot bio" style="width:8px;height:8px;"></span>
+                Biology · Synced from Google Classroom
+              </div>
+
+              <div class="details-grid">
+                <div class="detail-field">
+                  <div class="detail-label">Due date</div>
+                  <div class="detail-value">May 27, 2026</div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-label">Status</div>
+                  <div class="detail-value"><span class="badge badge-progress">In progress</span></div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-label">Estimated time</div>
+                  <div class="detail-value"><input type="text" value="90 min"></div>
+                </div>
+                <div class="detail-field">
+                  <div class="detail-label">Topic</div>
+                  <div class="detail-value">Cell Membranes</div>
+                </div>
+              </div>
+
+              <div class="toggle-row">
+                <div>
+                  <div class="toggle-label">Break into daily chunks</div>
+                  <div class="toggle-desc">OnTrack splits this across multiple sessions</div>
+                </div>
+                <div class="toggle-switch on" id="chunk-toggle" onclick="toggleChunks()"></div>
+              </div>
+
+              <div id="chunks-preview" class="chunks-preview">
+                <div class="chunks-preview-title">Planned sessions</div>
+                <div class="chunk-row">
+                  <span>Tonight (Tue May 26)</span><span>45 min</span>
+                </div>
+                <div class="chunk-row">
+                  <span>Tomorrow (Wed May 27)</span><span>45 min</span>
+                </div>
+                <div class="chunks-note">OnTrack reschedules automatically if a session is marked incomplete.</div>
+              </div>
+
+              <div class="status-section-title">Update status</div>
+              <div class="status-btns-row">
+                <button class="status-btn-inline">Done early</button>
+                <button class="status-btn-inline">Taking longer</button>
+                <button class="status-btn-inline">Finished</button>
+                <button class="status-btn-inline">Incomplete</button>
+              </div>
+            </div>
+          </div><!-- /screen-assignment-details -->
+
+          <!-- ─────────────────────────────────────
+               SCREEN: ASSISTANT
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-assistant">
+            <div class="asst-header">
+              <div class="page-title">Assistant</div>
+              <div class="page-sub">Ask anything about your plan</div>
+            </div>
+            <div class="chat-messages">
+              <div class="message ai">
+                <div class="message-label">OnTrack</div>
+                <div class="message-bubble">
+                  Here's your plan for tonight:<br><br>
+                  1. <strong>Biology Lab Report</strong> — 90 min (due tomorrow — top priority)<br>
+                  2. <strong>Algebra HW 9</strong> — 45 min (due Wed)<br>
+                  3. <strong>History Essay chunk 1</strong> — 45 min (due Thu)<br><br>
+                  That's about 3 hrs total. Let me know if anything changes.
+                </div>
+              </div>
+              <div class="message user-msg">
+                <div class="message-label">You</div>
+                <div class="message-bubble">
+                  Biology is taking way longer than I thought — been on it 2 hours and I'm still not done.
+                </div>
+              </div>
+              <div class="message ai">
+                <div class="message-label">OnTrack</div>
+                <div class="message-bubble">
+                  Got it — I've moved Algebra and History to tomorrow.<br><br>
+                  Updated plan for tonight:<br>
+                  1. <strong>Biology Lab Report</strong> — finish it (you're almost there)<br><br>
+                  I'll slot Algebra and History chunk 1 in tomorrow around your other assignments.
+                </div>
+              </div>
+            </div>
+            <div class="chat-bar">
+              <div class="chat-row">
+                <input class="chat-input" id="asst-input" type="text" placeholder="Tell OnTrack what's happening..." onkeydown="if(event.key==='Enter') sendAssistantMessage()">
+                <button class="chat-send" onclick="sendAssistantMessage()">Send</button>
+              </div>
+            </div>
+          </div><!-- /screen-assistant -->
+
+          <!-- ─────────────────────────────────────
+               SCREEN: SETTINGS
+          ───────────────────────────────────── -->
+          <div class="screen" id="screen-settings">
+            <div class="page-header">
+              <div class="page-title">Settings</div>
+            </div>
+            <div class="settings-body">
+
+              <div class="settings-section">
+                <div class="settings-section-title">Notifications</div>
+                <div class="settings-card">
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">Study reminder</div>
+                      <div class="settings-row-desc">OnTrack reminds you when it's time to start</div>
+                    </div>
+                    <div class="settings-control">
+                      <select onchange="toast('Study reminder set to: ' + this.value)">
+                        <option>30 min before</option>
+                        <option>1 hr before</option>
+                        <option>At start time</option>
+                        <option>Off</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">Deadline reminders</div>
+                      <div class="settings-row-desc">Alerts as due dates approach</div>
+                    </div>
+                    <div class="settings-control">
+                      <div class="toggle-switch on" onclick="toggleSetting(this, 'Deadline reminders')"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-section">
+                <div class="settings-section-title">Availability hours</div>
+                <div class="settings-card">
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">I'm usually free after</div>
+                      <div class="settings-row-desc">OnTrack plans sessions starting from this time</div>
+                    </div>
+                    <div class="settings-control">
+                      <input type="time" value="16:00" onchange="toast('Start time updated — plan will recalculate')">
+                    </div>
+                  </div>
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">I stop working by</div>
+                      <div class="settings-row-desc">OnTrack won't schedule past this time</div>
+                    </div>
+                    <div class="settings-control">
+                      <input type="time" value="22:00" onchange="toast('End time updated — plan will recalculate')">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-section">
+                <div class="settings-section-title">Accessibility</div>
+                <div class="settings-card">
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">High contrast mode</div>
+                    </div>
+                    <div class="settings-control">
+                      <div class="toggle-switch" onclick="toggleHighContrast(this)"></div>
+                    </div>
+                  </div>
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">Color-blind friendly display</div>
+                    </div>
+                    <div class="settings-control">
+                      <div class="toggle-switch" onclick="toggleColorblind(this)"></div>
+                    </div>
+                  </div>
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">Text size</div>
+                    </div>
+                    <div class="settings-control">
+                      <select onchange="setTextSize(this.value)">
+                        <option>Default</option>
+                        <option>Large</option>
+                        <option>Extra large</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="settings-section">
+                <div class="settings-section-title">Google account</div>
+                <div class="settings-card">
+                  <div class="settings-row">
+                    <div>
+                      <div class="settings-row-label">ruben@students.school.edu</div>
+                      <div class="settings-row-desc">Assignments synced automatically from Google Classroom</div>
+                    </div>
+                    <button class="disconnect-btn" onclick="signOut()">Disconnect</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div><!-- /screen-settings -->
+
+        </div><!-- /screen-container -->
+      </div><!-- /main-col -->
+    </div><!-- /app-layout -->
+  </div><!-- /app-shell -->
+
+</div><!-- /root -->
+
+<!-- ════════════════════════════════════════
+     SYNC ERROR SCREEN (first-time user)
+════════════════════════════════════════ -->
+<div id="sync-error-screen">
+  <div class="sync-error-card">
+    <div class="sync-error-icon">📡</div>
+    <div class="sync-error-title">Couldn't connect to Google Classroom</div>
+    <div class="sync-error-body">
+      This is usually temporary — Google Classroom may be down, or you might be offline.
+      Your plan will appear once OnTrack can reach your account.
+    </div>
+    <button class="btn-primary" style="width:100%; padding:12px;" onclick="hideSyncError()">
+      Try again
+    </button>
+    <a class="sync-error-link" href="https://classroom.google.com" target="_blank" rel="noopener">
+      Check Google Classroom directly →
+    </a>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     STATUS POPUP
+════════════════════════════════════════ -->
+<div id="status-popup">
+  <div class="status-popup-title">Update status</div>
+  <button class="status-btn" onclick="statusAction('done-early')">✓ &nbsp;Done early</button>
+  <button class="status-btn" onclick="statusAction('taking-longer')">⏱ &nbsp;Taking longer → tell assistant</button>
+  <button class="status-btn" onclick="statusAction('finished')">🏁 &nbsp;Finished</button>
+  <button class="status-btn" onclick="statusAction('incomplete')">↩ &nbsp;Incomplete</button>
+  <button class="status-btn" onclick="statusAction('break')">☕ &nbsp;Need a break</button>
+</div>
+
+<!-- ════════════════════════════════════════
+     ADD ASSIGNMENT OVERLAY
+════════════════════════════════════════ -->
+<div class="overlay" id="add-overlay" onclick="handleOverlayClick(event)">
+  <div class="overlay-card" onclick="event.stopPropagation()">
+    <div class="overlay-title">Add assignment</div>
+    <div class="form-field">
+      <label class="form-label">Class</label>
+      <select class="form-input">
+        <option>Biology</option>
+        <option>Algebra II</option>
+        <option>History</option>
+        <option>English</option>
+      </select>
+    </div>
+    <div class="form-field">
+      <label class="form-label">Assignment name</label>
+      <input class="form-input" type="text" placeholder="e.g. Chapter 8 Reading">
+    </div>
+    <div class="form-field">
+      <label class="form-label">Topic (optional)</label>
+      <input class="form-input" type="text" placeholder="e.g. Photosynthesis">
+    </div>
+    <div class="form-row">
+      <div class="form-field">
+        <label class="form-label">Due date</label>
+        <input class="form-input" type="date">
+      </div>
+      <div class="form-field">
+        <label class="form-label">Est. time (min)</label>
+        <input class="form-input" type="number" placeholder="45">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeOverlay()">Cancel</button>
+      <button class="btn-primary" onclick="addAssignment()">Add assignment</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* ══════════════════════════════════════════
+     NAVIGATION
+  ══════════════════════════════════════════ */
+  function navigate(screenId) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    const screen = document.getElementById('screen-' + screenId);
+    if (screen) screen.classList.add('active');
+    const nav = document.getElementById('nav-' + screenId);
+    if (nav) nav.classList.add('active');
+    closeStatusPopup();
+  }
+
+  function goToApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app-shell').style.display = 'block';
+    navigate('calendar');
+  }
+
+  function signOut() {
+    if (confirm('Disconnect Google account and sign out?')) {
+      document.getElementById('app-shell').style.display = 'none';
+      document.getElementById('login-screen').style.display = 'flex';
+    }
+  }
+
+  /* ══════════════════════════════════════════
+     TOAST
+  ══════════════════════════════════════════ */
+  let toastTimer;
+  function toast(msg) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.classList.add('visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('visible'), 2600);
+  }
+
+  /* ══════════════════════════════════════════
+     CALENDAR VIEW SWITCHING
+  ══════════════════════════════════════════ */
+  const viewTitles = { day: 'Tuesday, May 26', week: 'May 2026', month: 'May 2026' };
+
+  function switchView(viewName) {
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + viewName).classList.add('active');
+    document.querySelectorAll('.cal-view').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + viewName).classList.add('active');
+    document.getElementById('cal-title').textContent = viewTitles[viewName];
+  }
+
+  /* ══════════════════════════════════════════
+     CLASS FOLDERS
+  ══════════════════════════════════════════ */
+  function toggleFolder(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.folder-chevron');
+    const isOpen = body.classList.toggle('open');
+    chevron.classList.toggle('open', isOpen);
+  }
+
+  /* ══════════════════════════════════════════
+     CHUNK TOGGLE
+  ══════════════════════════════════════════ */
+  function toggleChunks() {
+    const toggle = document.getElementById('chunk-toggle');
+    const preview = document.getElementById('chunks-preview');
+    toggle.classList.toggle('on');
+    preview.style.display = toggle.classList.contains('on') ? 'block' : 'none';
+    toast(toggle.classList.contains('on') ? 'Breaking into daily chunks — plan updated' : 'Chunks off — scheduled as one session');
+  }
+
+  /* ══════════════════════════════════════════
+     STATUS POPUP
+  ══════════════════════════════════════════ */
+  let activePlanItem = null;
+
+  function showStatusPopup(event, el) {
+    event.stopPropagation();
+    activePlanItem = el;
+    const popup = document.getElementById('status-popup');
+    popup.style.display = 'block';
+    let x = event.clientX + 10;
+    let y = event.clientY + 10;
+    if (x + 230 > window.innerWidth)  x = window.innerWidth  - 240;
+    if (y + 210 > window.innerHeight) y = window.innerHeight - 220;
+    popup.style.left = x + 'px';
+    popup.style.top  = y + 'px';
+  }
+
+  function closeStatusPopup() {
+    document.getElementById('status-popup').style.display = 'none';
+  }
+
+  function statusAction(action) {
+    closeStatusPopup();
+    if (!activePlanItem) return;
+    const name = activePlanItem.querySelector('.plan-item-name').textContent;
+
+    if (action === 'done-early') {
+      activePlanItem.classList.add('done');
+      activePlanItem.onclick = null;
+      toast('✓ Marked done early — great work!');
+
+    } else if (action === 'finished') {
+      activePlanItem.style.transition = 'opacity 0.3s, transform 0.3s';
+      activePlanItem.style.opacity = '0';
+      activePlanItem.style.transform = 'translateX(20px)';
+      setTimeout(() => activePlanItem.remove(), 300);
+      toast('🏁 ' + name + ' finished and removed from your plan');
+
+    } else if (action === 'incomplete') {
+      activePlanItem.classList.add('done');
+      activePlanItem.onclick = null;
+      const tag = document.createElement('div');
+      tag.className = 'reschedule-tag';
+      tag.textContent = '↩ Rescheduled for tomorrow';
+      activePlanItem.appendChild(tag);
+      toast('↩ Moved to top of tomorrow\'s plan');
+
+    } else if (action === 'break') {
+      const list = activePlanItem.parentElement;
+      list.appendChild(activePlanItem);
+      toast('☕ Moved to end of tonight\'s list — enjoy your break');
+
+    } else if (action === 'taking-longer') {
+      const input = document.getElementById('asst-input');
+      if (input) input.value = name + ' is taking longer than expected.';
+      navigate('assistant');
+      toast('⏱ Opening assistant — tell it what\'s happening');
+    }
+
+    activePlanItem = null;
+  }
+
+  document.addEventListener('click', function(e) {
+    const popup = document.getElementById('status-popup');
+    if (popup.style.display === 'block' &&
+        !e.target.closest('#status-popup') &&
+        !e.target.closest('.plan-item')) {
+      closeStatusPopup();
+    }
+  });
+
+  /* ══════════════════════════════════════════
+     ASSISTANT CHAT
+  ══════════════════════════════════════════ */
+  const AI_REPLIES = {
+    longer:   'Got it — I\'ve moved the remaining tasks to tomorrow. Tonight: just focus on finishing what you have. You\'ve got this.',
+    done:     'Nice work finishing early! I\'ve pulled in the next item from your queue if there\'s still time tonight.',
+    break:    'You\'ve earned it. I\'ve moved the remaining tasks to tomorrow and cleared the rest of tonight. Rest up.',
+    tomorrow: 'Done — I\'ve rescheduled that for tomorrow and adjusted the rest of the week.',
+    default:  'Got it — I\'ve updated your plan. Let me know if anything else changes tonight.'
+  };
+
+  function getReply(text) {
+    const t = text.toLowerCase();
+    if (t.includes('longer') || t.includes('more time') || t.includes('still'))  return AI_REPLIES.longer;
+    if (t.includes('done') || t.includes('finish') || t.includes('complete'))    return AI_REPLIES.done;
+    if (t.includes('break') || t.includes('tired') || t.includes('stop'))        return AI_REPLIES.break;
+    if (t.includes('tomorrow') || t.includes('skip') || t.includes('reschedule')) return AI_REPLIES.tomorrow;
+    return AI_REPLIES.default;
+  }
+
+  function sendAssistantMessage() {
+    const input = document.getElementById('asst-input');
+    const text  = input.value.trim();
+    if (!text) return;
+
+    const messages = document.querySelector('.chat-messages');
+
+    // Add user message
+    const userDiv = document.createElement('div');
+    userDiv.className = 'message user-msg';
+    userDiv.innerHTML = '<div class="message-label">You</div><div class="message-bubble">' + escHtml(text) + '</div>';
+    messages.appendChild(userDiv);
+    input.value = '';
+
+    // Typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message ai';
+    typingDiv.innerHTML = '<div class="message-label">OnTrack</div><div class="typing-bubble"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+    messages.appendChild(typingDiv);
+    messages.scrollTop = messages.scrollHeight;
+
+    // AI reply after short delay
+    setTimeout(() => {
+      typingDiv.querySelector('.typing-bubble').outerHTML;
+      typingDiv.innerHTML = '<div class="message-label">OnTrack</div><div class="message-bubble">' + getReply(text) + '</div>';
+      messages.scrollTop = messages.scrollHeight;
+    }, 900);
+  }
+
+  /* ══════════════════════════════════════════
+     PANEL CHAT → ASSISTANT
+  ══════════════════════════════════════════ */
+  function sendPanelMessage() {
+    const input = document.getElementById('panel-chat-input');
+    const text  = input.value.trim();
+    if (text) {
+      const asstInput = document.getElementById('asst-input');
+      if (asstInput) asstInput.value = text;
+      input.value = '';
+    }
+    navigate('assistant');
+  }
+
+  /* ══════════════════════════════════════════
+     ADD ASSIGNMENT
+  ══════════════════════════════════════════ */
+  function addAssignment() {
+    const card    = document.querySelector('#add-overlay .overlay-card');
+    const cls     = card.querySelector('select').value;
+    const nameVal = card.querySelectorAll('input[type="text"]')[0].value.trim();
+    const due     = card.querySelector('input[type="date"]').value;
+    const mins    = card.querySelector('input[type="number"]').value;
+
+    if (!nameVal) { toast('Please enter an assignment name'); return; }
+
+    const clsKey  = { 'Biology': 'bio', 'Algebra II': 'alg', 'History': 'hist', 'English': 'eng' }[cls] || 'alg';
+    const dueText = due ? formatDate(due) : 'Upcoming';
+    const timeText = mins ? mins + ' min' : '—';
+
+    // Add to Daily Plan panel list
+    const planLists = document.querySelectorAll('.plan-list, .standalone-plan-list');
+    planLists.forEach(list => {
+      const item = document.createElement('div');
+      item.className = 'plan-item ' + clsKey;
+      item.setAttribute('onclick', 'showStatusPopup(event, this)');
+      item.innerHTML =
+        '<div class="plan-item-class">' + escHtml(cls) + '</div>' +
+        '<div class="plan-item-name">'  + escHtml(nameVal) + '</div>' +
+        '<div class="plan-item-meta"><span>Due ' + escHtml(dueText) + '</span><span>' + escHtml(timeText) + '</span></div>';
+      // re-bind onclick since we used setAttribute
+      item.onclick = function(e) { showStatusPopup(e, this); };
+      list.appendChild(item);
+    });
+
+    // Reset form
+    card.querySelectorAll('input[type="text"]').forEach(i => i.value = '');
+    card.querySelector('input[type="date"]').value  = '';
+    card.querySelector('input[type="number"]').value = '';
+
+    closeOverlay();
+    toast('✓ ' + nameVal + ' added to your plan');
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return 'Upcoming';
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  }
+
+  function escHtml(str) {
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ══════════════════════════════════════════
+     SETTINGS
+  ══════════════════════════════════════════ */
+  function toggleSetting(el, label) {
+    el.classList.toggle('on');
+    const on = el.classList.contains('on');
+    toast(label + ' turned ' + (on ? 'on' : 'off'));
+  }
+
+  function toggleHighContrast(el) {
+    el.classList.toggle('on');
+    document.body.classList.toggle('high-contrast', el.classList.contains('on'));
+    toast('High contrast mode ' + (el.classList.contains('on') ? 'on' : 'off'));
+  }
+
+  function toggleColorblind(el) {
+    el.classList.toggle('on');
+    document.body.classList.toggle('colorblind', el.classList.contains('on'));
+    toast('Color-blind friendly display ' + (el.classList.contains('on') ? 'on' : 'off'));
+  }
+
+  function setTextSize(val) {
+    const sizes = { 'Default': '14px', 'Large': '16px', 'Extra large': '19px' };
+    document.body.style.fontSize = sizes[val] || '14px';
+    toast('Text size set to ' + val);
+  }
+
+  /* ══════════════════════════════════════════
+     OVERLAY
+  ══════════════════════════════════════════ */
+  function showOverlay() {
+    document.getElementById('add-overlay').classList.add('visible');
+  }
+
+  function closeOverlay() {
+    document.getElementById('add-overlay').classList.remove('visible');
+  }
+
+  function handleOverlayClick(event) {
+    if (event.target === event.currentTarget) closeOverlay();
+  }
+
+  /* ══════════════════════════════════════════
+     SYNC BANNER / ERROR
+  ══════════════════════════════════════════ */
+  function showSyncBanner() {
+    document.getElementById('sync-banner').classList.add('visible');
+  }
+
+  function hideSyncBanner() {
+    document.getElementById('sync-banner').classList.remove('visible');
+    toast('Retrying sync…');
+  }
+
+  function showSyncError() {
+    document.getElementById('sync-error-screen').classList.add('visible');
+  }
+
+  function hideSyncError() {
+    document.getElementById('sync-error-screen').classList.remove('visible');
+    if (document.getElementById('app-shell').style.display !== 'block') goToApp();
+    toast('Connected to Google Classroom');
+  }
+</script>
+
+<!-- Toast -->
+<div id="toast"></div>
+
+</body>
+</html>
