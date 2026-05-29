@@ -34,6 +34,14 @@
       --eng-light:    #ede9fe;
       --eng-dark:     #4c1d95;
 
+      --rose:         #e11d48;
+      --rose-light:   #ffe4e6;
+      --rose-dark:    #9f1239;
+
+      --teal:         #0d9488;
+      --teal-light:   #ccfbf1;
+      --teal-dark:    #134e4a;
+
       --r-sm:   6px;
       --r:      10px;
       --r-lg:   16px;
@@ -399,6 +407,8 @@
     .class-dot.alg  { background: var(--alg); }
     .class-dot.hist { background: var(--hist); }
     .class-dot.eng  { background: var(--eng); }
+    .class-dot.rose { background: var(--rose); }
+    .class-dot.teal { background: var(--teal); }
 
     /* Plan item card */
     .plan-item {
@@ -645,6 +655,8 @@
     .cal-chip.alg  { background: var(--alg-light);  color: var(--alg-dark);  border-left-color: var(--alg); }
     .cal-chip.hist { background: var(--hist-light); color: var(--hist-dark); border-left-color: var(--hist); }
     .cal-chip.eng  { background: var(--eng-light);  color: var(--eng-dark);  border-left-color: var(--eng); }
+    .cal-chip.rose { background: var(--rose-light); color: var(--rose-dark); border-left-color: var(--rose); }
+    .cal-chip.teal { background: var(--teal-light); color: var(--teal-dark); border-left-color: var(--teal); }
 
     /* ── Day view ── */
     .day-label {
@@ -701,6 +713,8 @@
     .day-event.alg  { background: var(--alg-light);  border-left-color: var(--alg);  color: var(--alg-dark); }
     .day-event.hist { background: var(--hist-light); border-left-color: var(--hist); color: var(--hist-dark); }
     .day-event.eng  { background: var(--eng-light);  border-left-color: var(--eng);  color: var(--eng-dark); }
+    .day-event.rose { background: var(--rose-light); border-left-color: var(--rose); color: var(--rose-dark); }
+    .day-event.teal { background: var(--teal-light); border-left-color: var(--teal); color: var(--teal-dark); }
 
     .day-event-class { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
     .day-event-name  { font-size: 12px; font-weight: 700; margin: 2px 0 1px; }
@@ -810,6 +824,8 @@
     .month-chip.alg  { background: var(--alg-light);  color: var(--alg-dark); }
     .month-chip.hist { background: var(--hist-light); color: var(--hist-dark); }
     .month-chip.eng  { background: var(--eng-light);  color: var(--eng-dark); }
+    .month-chip.rose { background: var(--rose-light); color: var(--rose-dark); }
+    .month-chip.teal { background: var(--teal-light); color: var(--teal-dark); }
 
     /* ── Daily Plan panel ── */
     .daily-plan-panel {
@@ -972,6 +988,39 @@
     .cumulative-icon.alg  { background: var(--alg-light); }
     .cumulative-icon.hist { background: var(--hist-light); }
     .cumulative-icon.eng  { background: var(--eng-light); }
+    .cumulative-icon.rose { background: var(--rose-light); }
+    .cumulative-icon.teal { background: var(--teal-light); }
+
+    /* ── Color swatch picker (Add Class overlay) ── */
+    .color-swatches { display: flex; gap: 10px; flex-wrap: wrap; padding: 2px 0; }
+    .color-swatch {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2.5px solid transparent;
+      transition: transform 0.12s, border-color 0.12s;
+      outline-offset: 2px;
+    }
+    .color-swatch:hover  { transform: scale(1.12); }
+    .color-swatch.selected { border-color: var(--text); transform: scale(1.2); }
+    .color-swatch.bio  { background: var(--bio); }
+    .color-swatch.alg  { background: var(--alg); }
+    .color-swatch.hist { background: var(--hist); }
+    .color-swatch.eng  { background: var(--eng); }
+    .color-swatch.rose { background: var(--rose); }
+    .color-swatch.teal { background: var(--teal); }
+
+    /* Source tag shown in folder header for manually-added classes */
+    .class-source-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      margin-left: 4px;
+    }
 
     .class-settings-label { font-size: 12px; font-weight: 600; }
     .class-settings-desc  { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
@@ -991,6 +1040,14 @@
 
     .asgn-row:hover { background: var(--surface-2); }
     .asgn-row:last-child { border-bottom: none; }
+
+    /* Color-coded left stripe on assignment rows — matches parent class color */
+    .class-folder.bio  .asgn-row:not(.asgn-header) { border-left: 3px solid var(--bio);  padding-left: 13px; }
+    .class-folder.alg  .asgn-row:not(.asgn-header) { border-left: 3px solid var(--alg);  padding-left: 13px; }
+    .class-folder.hist .asgn-row:not(.asgn-header) { border-left: 3px solid var(--hist); padding-left: 13px; }
+    .class-folder.eng  .asgn-row:not(.asgn-header) { border-left: 3px solid var(--eng);  padding-left: 13px; }
+    .class-folder.rose .asgn-row:not(.asgn-header) { border-left: 3px solid var(--rose); padding-left: 13px; }
+    .class-folder.teal .asgn-row:not(.asgn-header) { border-left: 3px solid var(--teal); padding-left: 13px; }
 
     .asgn-row.asgn-header {
       background: var(--surface-2);
@@ -1358,6 +1415,37 @@
       --eng:       #cc79a7;
       --eng-light: #f5e0ee;
       --eng-dark:  #7a3a62;
+
+      --rose:      #d55e00;
+      --rose-light:#fde8d0;
+      --rose-dark: #7a3500;
+
+      --teal:      #56b4e9;
+      --teal-light:#d0ecf9;
+      --teal-dark: #1a5f80;
+    }
+
+    /* Sidebar shows a visible amber border + indicator badge when colorblind mode is on */
+    body.colorblind .sidebar {
+      border-right: 3px solid #e69f00;
+    }
+
+    #cb-indicator {
+      display: none;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: #7a5200;
+      background: #fff0cc;
+      border: 1px solid #e69f00;
+      border-radius: 5px;
+      padding: 4px 8px;
+      margin: 10px 12px 0;
+      text-align: center;
+    }
+
+    body.colorblind #cb-indicator {
+      display: block;
     }
 
     /* ═══════════════════════════════════════════
@@ -1632,6 +1720,7 @@
             <span class="nav-icon">✅</span> Daily Plan
           </a>
         </nav>
+        <div id="cb-indicator">👁 Colorblind display</div>
         <div class="sidebar-bottom">
           <a class="nav-item" id="nav-settings"    onclick="navigate('settings')">
             <span class="nav-icon">⚙️</span> Settings
@@ -1703,19 +1792,19 @@
                     <!-- Now line (~5:20 PM = 2h 20m from 3 PM = 149px) -->
                     <div class="day-now-line" style="top: 149px;"></div>
                     <!-- Algebra HW 9: 5:00–5:45 PM → top 130px, height 46px -->
-                    <div class="day-event alg" style="top:130px; height:46px;" onclick="navigate('assignment-details')">
+                    <div class="day-event alg" style="top:130px; height:46px;" onclick="showAssignmentDetails({name:'Homework 9 — Quadratics',cls:'Algebra II',color:'alg',due:'May 28, 2026',mins:45,status:'in-progress',source:'Google Classroom',topic:'Quadratics'},'calendar')">
                       <div class="day-event-class">Algebra II</div>
                       <div class="day-event-name">Homework 9</div>
                       <div class="day-event-time">5:00 – 5:45 PM · 45 min</div>
                     </div>
                     <!-- Bio Lab Report: 7:00–8:30 PM → top 258px, height 94px -->
-                    <div class="day-event bio" style="top:258px; height:94px;" onclick="navigate('assignment-details')">
+                    <div class="day-event bio" style="top:258px; height:94px;" onclick="showAssignmentDetails({name:'Lab Report — Cell Membranes',cls:'Biology',color:'bio',due:'May 27, 2026',mins:90,status:'in-progress',source:'Google Classroom',topic:'Cell Membranes'},'calendar')">
                       <div class="day-event-class">Biology</div>
                       <div class="day-event-name">Lab Report — Cell Membranes</div>
                       <div class="day-event-time">7:00 – 8:30 PM · 90 min</div>
                     </div>
                     <!-- History Essay ch.1: 8:30–9:15 PM → top 354px, height 46px -->
-                    <div class="day-event hist" style="top:354px; height:46px;" onclick="navigate('assignment-details')">
+                    <div class="day-event hist" style="top:354px; height:46px;" onclick="showAssignmentDetails({name:'Essay — Industrial Revolution',cls:'History',color:'hist',due:'May 29, 2026',mins:45,status:'in-progress',source:'Google Classroom',topic:'Industrial Revolution'},'calendar')">
                       <div class="day-event-class">History</div>
                       <div class="day-event-name">Essay — chunk 1 of 3</div>
                       <div class="day-event-time">8:30 – 9:15 PM · 45 min</div>
@@ -1743,13 +1832,13 @@
                       <div class="cal-cell time-label">DUE</div>
                       <div class="cal-cell"></div>
                       <div class="cal-cell">
-                        <div class="cal-chip bio" onclick="navigate('assignment-details')">Bio Lab Report</div>
+                        <div class="cal-chip bio" onclick="showAssignmentDetails({name:'Lab Report — Cell Membranes',cls:'Biology',color:'bio',due:'May 27, 2026',mins:90,status:'in-progress',source:'Google Classroom',topic:'Cell Membranes'},'calendar')">Bio Lab Report</div>
                       </div>
                       <div class="cal-cell">
-                        <div class="cal-chip alg" onclick="navigate('assignment-details')">Algebra HW 9</div>
+                        <div class="cal-chip alg" onclick="showAssignmentDetails({name:'Homework 9 — Quadratics',cls:'Algebra II',color:'alg',due:'May 28, 2026',mins:45,status:'in-progress',source:'Google Classroom',topic:'Quadratics'},'calendar')">Algebra HW 9</div>
                       </div>
                       <div class="cal-cell">
-                        <div class="cal-chip hist" onclick="navigate('assignment-details')">History Essay</div>
+                        <div class="cal-chip hist" onclick="showAssignmentDetails({name:'Essay — Industrial Revolution',cls:'History',color:'hist',due:'May 29, 2026',mins:135,status:'in-progress',source:'Google Classroom',topic:'Industrial Revolution'},'calendar')">History Essay</div>
                       </div>
                       <div class="cal-cell"></div>
                       <div class="cal-cell"></div>
@@ -1913,17 +2002,17 @@
                 <div class="panel-date">Tuesday, May 26</div>
               </div>
               <div class="plan-list">
-                <div class="plan-item bio" onclick="showStatusPopup(event, this)">
+                <div class="plan-item bio" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">Biology</div>
                   <div class="plan-item-name">Lab Report</div>
                   <div class="plan-item-meta"><span>Due tomorrow</span><span>90 min</span></div>
                 </div>
-                <div class="plan-item alg" onclick="showStatusPopup(event, this)">
+                <div class="plan-item alg" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">Algebra II</div>
                   <div class="plan-item-name">Homework 9</div>
                   <div class="plan-item-meta"><span>Due Wed</span><span>45 min</span></div>
                 </div>
-                <div class="plan-item hist" onclick="showStatusPopup(event, this)">
+                <div class="plan-item hist" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">History</div>
                   <div class="plan-item-name">Essay (chunk 1 of 3)</div>
                   <div class="plan-item-meta"><span>Due Thu</span><span>45 min</span></div>
@@ -1949,17 +2038,17 @@
             </div>
             <div class="standalone-plan">
               <div class="standalone-plan-list">
-                <div class="plan-item bio" onclick="showStatusPopup(event, this)">
+                <div class="plan-item bio" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">Biology</div>
                   <div class="plan-item-name">Lab Report</div>
                   <div class="plan-item-meta"><span>Due tomorrow</span><span>90 min</span></div>
                 </div>
-                <div class="plan-item alg" onclick="showStatusPopup(event, this)">
+                <div class="plan-item alg" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">Algebra II</div>
                   <div class="plan-item-name">Homework 9</div>
                   <div class="plan-item-meta"><span>Due Wed</span><span>45 min</span></div>
                 </div>
-                <div class="plan-item hist" onclick="showStatusPopup(event, this)">
+                <div class="plan-item hist" onclick="openPlanItemDetails(this)">
                   <div class="plan-item-class">History</div>
                   <div class="plan-item-name">Essay (chunk 1 of 3)</div>
                   <div class="plan-item-meta"><span>Due Thu</span><span>45 min</span></div>
@@ -1972,13 +2061,14 @@
                SCREEN: CLASSES
           ───────────────────────────────────── -->
           <div class="screen" id="screen-classes">
-            <div class="page-header">
+            <div class="page-header" style="display:flex; align-items:center; justify-content:space-between;">
               <div class="page-title">Classes</div>
+              <button class="btn-primary" style="font-size:12px; padding:7px 16px;" onclick="showAddClassOverlay()">+ Add class</button>
             </div>
             <div class="classes-body">
 
               <!-- Biology folder -->
-              <div class="class-folder">
+              <div class="class-folder bio">
                 <div class="folder-header" onclick="toggleFolder(this)">
                   <div class="folder-header-left">
                     <span class="class-dot bio"></span> Biology
@@ -1999,13 +2089,13 @@
                   <div class="asgn-row asgn-header">
                     <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Lab Report — Cell Membranes</span>
                     <span>May 27</span>
                     <span>90 min</span>
                     <span><span class="badge badge-progress">In progress</span></span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Chapter 7 Reading</span>
                     <span>Jun 2</span>
                     <span>30 min</span>
@@ -2015,7 +2105,7 @@
               </div>
 
               <!-- Algebra II folder -->
-              <div class="class-folder">
+              <div class="class-folder alg">
                 <div class="folder-header" onclick="toggleFolder(this)">
                   <div class="folder-header-left">
                     <span class="class-dot alg"></span> Algebra II
@@ -2036,13 +2126,13 @@
                   <div class="asgn-row asgn-header">
                     <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Homework 9 — Quadratics</span>
                     <span>May 28</span>
                     <span>45 min</span>
                     <span><span class="badge badge-progress">In progress</span></span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Quiz Review</span>
                     <span>Jun 3</span>
                     <span>60 min</span>
@@ -2052,7 +2142,7 @@
               </div>
 
               <!-- History folder -->
-              <div class="class-folder">
+              <div class="class-folder hist">
                 <div class="folder-header" onclick="toggleFolder(this)">
                   <div class="folder-header-left">
                     <span class="class-dot hist"></span> History
@@ -2073,7 +2163,7 @@
                   <div class="asgn-row asgn-header">
                     <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Essay — Industrial Revolution</span>
                     <span>May 29</span>
                     <span>135 min</span>
@@ -2083,7 +2173,7 @@
               </div>
 
               <!-- English folder -->
-              <div class="class-folder">
+              <div class="class-folder eng">
                 <div class="folder-header" onclick="toggleFolder(this)">
                   <div class="folder-header-left">
                     <span class="class-dot eng"></span> English
@@ -2104,7 +2194,7 @@
                   <div class="asgn-row asgn-header">
                     <span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>
                   </div>
-                  <div class="asgn-row" onclick="navigate('assignment-details')">
+                  <div class="asgn-row" onclick="openAsgnRow(this,'classes')">
                     <span>Reading Response #4</span>
                     <span>Jun 5</span>
                     <span>45 min</span>
@@ -2121,31 +2211,31 @@
           ───────────────────────────────────── -->
           <div class="screen" id="screen-assignment-details">
             <div class="page-header">
-              <span class="back-link" onclick="navigate('classes')">← Classes</span>
+              <span class="back-link" id="details-back-link" onclick="navigate('classes')">← Classes</span>
             </div>
             <div class="details-body">
-              <div class="details-title">Lab Report — Cell Membranes</div>
-              <div class="details-class-tag bio">
-                <span class="class-dot bio" style="width:8px;height:8px;"></span>
-                Biology · Synced from Google Classroom
+              <div class="details-title" id="details-title">Lab Report — Cell Membranes</div>
+              <div class="details-class-tag bio" id="details-class-tag">
+                <span class="class-dot bio" id="details-class-dot" style="width:8px;height:8px;"></span>
+                <span id="details-class-label">Biology · Synced from Google Classroom</span>
               </div>
 
               <div class="details-grid">
                 <div class="detail-field">
                   <div class="detail-label">Due date</div>
-                  <div class="detail-value">May 27, 2026</div>
+                  <div class="detail-value" id="details-due">May 27, 2026</div>
                 </div>
                 <div class="detail-field">
                   <div class="detail-label">Status</div>
-                  <div class="detail-value"><span class="badge badge-progress">In progress</span></div>
+                  <div class="detail-value" id="details-status"><span class="badge badge-progress">In progress</span></div>
                 </div>
                 <div class="detail-field">
                   <div class="detail-label">Estimated time</div>
-                  <div class="detail-value"><input type="text" value="90 min"></div>
+                  <div class="detail-value"><input type="text" value="90 min" id="est-time-input" onchange="updateEstimate(this.value)" onblur="updateEstimate(this.value)"></div>
                 </div>
                 <div class="detail-field">
                   <div class="detail-label">Topic</div>
-                  <div class="detail-value">Cell Membranes</div>
+                  <div class="detail-value" id="details-topic">Cell Membranes</div>
                 </div>
               </div>
 
@@ -2170,10 +2260,10 @@
 
               <div class="status-section-title">Update status</div>
               <div class="status-btns-row">
-                <button class="status-btn-inline">Done early</button>
-                <button class="status-btn-inline">Taking longer</button>
-                <button class="status-btn-inline">Finished</button>
-                <button class="status-btn-inline">Incomplete</button>
+                <button class="status-btn-inline" onclick="detailsStatusAction('done-early')">Done early</button>
+                <button class="status-btn-inline" onclick="detailsStatusAction('taking-longer')">Taking longer</button>
+                <button class="status-btn-inline" onclick="detailsStatusAction('finished')">Finished</button>
+                <button class="status-btn-inline" onclick="detailsStatusAction('incomplete')">Incomplete</button>
               </div>
             </div>
           </div><!-- /screen-assignment-details -->
@@ -2412,6 +2502,57 @@
   </div>
 </div>
 
+<!-- ════════════════════════════════════════
+     ADD CLASS OVERLAY
+════════════════════════════════════════ -->
+<div class="overlay" id="add-class-overlay" onclick="if(event.target===this)closeAddClassOverlay()">
+  <div class="overlay-card" onclick="event.stopPropagation()">
+    <div class="overlay-title">Add a class</div>
+
+    <div class="form-field">
+      <label class="form-label">Class name</label>
+      <input class="form-input" type="text" id="new-class-name" placeholder="e.g. AP Chemistry, Calculus BC, ECON 101">
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Color</label>
+      <div class="color-swatches" id="class-color-picker">
+        <div class="color-swatch bio selected" data-color="bio" onclick="selectClassColor(this)" title="Green"></div>
+        <div class="color-swatch alg"          data-color="alg" onclick="selectClassColor(this)" title="Blue"></div>
+        <div class="color-swatch hist"         data-color="hist" onclick="selectClassColor(this)" title="Amber"></div>
+        <div class="color-swatch eng"          data-color="eng" onclick="selectClassColor(this)" title="Purple"></div>
+        <div class="color-swatch rose"         data-color="rose" onclick="selectClassColor(this)" title="Red"></div>
+        <div class="color-swatch teal"         data-color="teal" onclick="selectClassColor(this)" title="Teal"></div>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Where is this class?</label>
+      <select class="form-input" id="new-class-source">
+        <option value="manual">Not in Google Classroom</option>
+        <option value="ap">AP class (different platform)</option>
+        <option value="college">College / dual-enrollment class</option>
+        <option value="other">Another app or system</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+        <div>
+          <div class="class-settings-label">Cumulative subject</div>
+          <div class="class-settings-desc">Topics build on each other — OnTrack prioritizes this higher</div>
+        </div>
+        <div class="toggle-switch" id="new-class-cumulative" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn-secondary" onclick="closeAddClassOverlay()">Cancel</button>
+      <button class="btn-primary" onclick="addClass()">Add class</button>
+    </div>
+  </div>
+</div>
+
 <script>
   /* ══════════════════════════════════════════
      NAVIGATION
@@ -2518,11 +2659,9 @@
       toast('✓ Marked done early — great work!');
 
     } else if (action === 'finished') {
-      activePlanItem.style.transition = 'opacity 0.3s, transform 0.3s';
-      activePlanItem.style.opacity = '0';
-      activePlanItem.style.transform = 'translateX(20px)';
-      setTimeout(() => activePlanItem.remove(), 300);
-      toast('🏁 ' + name + ' finished and removed from your plan');
+      collapseAndRemove(activePlanItem);
+      removeFromCalendar(name);
+      toast('🏁 ' + name + ' finished — removed from plan and calendar');
 
     } else if (action === 'incomplete') {
       activePlanItem.classList.add('done');
@@ -2641,13 +2780,15 @@
     planLists.forEach(list => {
       const item = document.createElement('div');
       item.className = 'plan-item ' + clsKey;
-      item.setAttribute('onclick', 'showStatusPopup(event, this)');
+      // Store data for details screen
+      item.dataset.mins   = mins || 45;
+      item.dataset.due    = dueText;
+      item.dataset.source = 'Added manually';
       item.innerHTML =
         '<div class="plan-item-class">' + escHtml(cls) + '</div>' +
         '<div class="plan-item-name">'  + escHtml(nameVal) + '</div>' +
         '<div class="plan-item-meta"><span>Due ' + escHtml(dueText) + '</span><span>' + escHtml(timeText) + '</span></div>';
-      // re-bind onclick since we used setAttribute
-      item.onclick = function(e) { showStatusPopup(e, this); };
+      item.onclick = function() { openPlanItemDetails(this); };
       list.appendChild(item);
     });
 
@@ -2656,8 +2797,139 @@
     card.querySelector('input[type="date"]').value  = '';
     card.querySelector('input[type="number"]').value = '';
 
+    // Inject into calendar views
+    addToCalendar(clsKey, cls, nameVal, due, mins ? parseInt(mins) : 45);
+
     closeOverlay();
-    toast('✓ ' + nameVal + ' added to your plan');
+    toast('✓ ' + nameVal + ' added — check the calendar');
+  }
+
+  /* ══════════════════════════════════════════
+     ASSIGNMENT DETAILS — STATUS BUTTONS
+  ══════════════════════════════════════════ */
+  function detailsStatusAction(action) {
+    var title = document.querySelector('#screen-assignment-details .details-title');
+    var assignmentName = title ? title.textContent.trim() : 'This assignment';
+    var btns = document.querySelectorAll('#screen-assignment-details .status-btn-inline');
+
+    if (action === 'done-early') {
+      // Grey out all status buttons, show success state
+      btns.forEach(b => { b.disabled = true; b.style.opacity = '0.4'; });
+      btns[0].style.opacity = '1';
+      btns[0].style.background = 'var(--bio-light)';
+      btns[0].style.color = 'var(--bio-dark)';
+      btns[0].style.borderColor = 'var(--bio)';
+      btns[0].textContent = '✓ Done early';
+      // Remove from any plan lists
+      removePlanItemByName(assignmentName.split('—')[0].trim());
+      toast('✓ Marked done early — plan updated');
+
+    } else if (action === 'taking-longer') {
+      var input = document.getElementById('asst-input');
+      if (input) input.value = assignmentName + ' is taking longer than expected.';
+      navigate('assistant');
+      toast('⏱ Tell the assistant what\'s happening');
+
+    } else if (action === 'finished') {
+      btns.forEach(b => { b.disabled = true; b.style.opacity = '0.4'; });
+      btns[2].style.opacity = '1';
+      btns[2].style.background = 'var(--bio-light)';
+      btns[2].style.color = 'var(--bio-dark)';
+      btns[2].style.borderColor = 'var(--bio)';
+      btns[2].textContent = '🏁 Finished!';
+      removePlanItemByName(assignmentName.split('—')[0].trim());
+      removeFromCalendar(assignmentName.split('—')[0].trim());
+      toast('🏁 ' + assignmentName.split('—')[0].trim() + ' marked finished — removed from plan and calendar');
+
+    } else if (action === 'incomplete') {
+      btns.forEach(b => { b.disabled = true; b.style.opacity = '0.4'; });
+      btns[3].style.opacity = '1';
+      btns[3].style.background = 'var(--hist-light)';
+      btns[3].style.color = 'var(--hist-dark)';
+      btns[3].style.borderColor = 'var(--hist)';
+      btns[3].textContent = '↩ Rescheduled';
+      toast('↩ Moved to top of tomorrow\'s plan');
+    }
+  }
+
+  // Remove all plan-item cards whose name contains the given string
+  /* Animate item out while collapsing height so items below slide up smoothly */
+  function collapseAndRemove(item) {
+    var h = item.offsetHeight;
+    // Phase 1: fade + slide left (220ms)
+    item.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
+    item.style.opacity = '0';
+    item.style.transform = 'translateX(-18px)';
+    // Phase 2: collapse height so remaining items slide up (starts at 160ms)
+    setTimeout(function() {
+      item.style.height = h + 'px';
+      item.style.overflow = 'hidden';
+      item.style.minHeight = '0';
+      void item.offsetHeight; // force reflow
+      item.style.transition = 'height 0.3s ease';
+      item.style.height = '0';
+    }, 160);
+    // Phase 3: remove after all motion settles
+    setTimeout(function() { item.remove(); }, 480);
+  }
+
+  function removePlanItemByName(name) {
+    var nameLower = name.toLowerCase().replace(/\s+/g,' ').trim();
+    document.querySelectorAll('.plan-item').forEach(function(item) {
+      var itemName = item.querySelector('.plan-item-name');
+      if (!itemName) return;
+      if (itemName.textContent.toLowerCase().includes(nameLower.split(' ')[0])) {
+        collapseAndRemove(item);
+      }
+    });
+  }
+
+  /* Remove all calendar chips + day events matching an assignment name */
+  function removeFromCalendar(name) {
+    // Match on first two words so "Lab Report" matches "Lab Report DUE", "Lab Report study", "Lab Report ch.1" etc.
+    var words   = name.toLowerCase().replace(/\s+/g,' ').trim().split(' ');
+    var keyword = words.slice(0, 2).join(' ');
+
+    function fadeChip(el) {
+      el.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+      el.style.opacity    = '0';
+      el.style.transform  = 'scale(0.75)';
+      setTimeout(function() { el.remove(); }, 280);
+    }
+
+    document.querySelectorAll('.cal-chip, .month-chip').forEach(function(chip) {
+      // Read text without the <small> child
+      var label = (chip.firstChild && chip.firstChild.nodeType === 3)
+        ? chip.firstChild.textContent.toLowerCase()
+        : chip.textContent.toLowerCase();
+      if (label.includes(keyword)) fadeChip(chip);
+    });
+
+    document.querySelectorAll('.day-event').forEach(function(ev) {
+      var nameEl = ev.querySelector('.day-event-name');
+      if (nameEl && nameEl.textContent.toLowerCase().includes(keyword)) fadeChip(ev);
+    });
+  }
+
+  /* ══════════════════════════════════════════
+     ESTIMATED TIME UPDATE
+  ══════════════════════════════════════════ */
+  function updateEstimate(val) {
+    if (!val || !val.trim()) return;
+    // Update chunk preview if visible
+    var preview = document.getElementById('chunks-preview');
+    if (preview && preview.style.display !== 'none') {
+      var mins = parseInt(val);
+      if (!isNaN(mins)) {
+        var half = Math.round(mins / 2);
+        var rows = preview.querySelectorAll('.chunk-row span:last-child');
+        if (rows.length >= 2) {
+          rows[0].textContent = half + ' min';
+          rows[1].textContent = (mins - half) + ' min';
+        }
+      }
+    }
+    toast('⟳ Estimate updated — plan recalculating…');
   }
 
   function formatDate(dateStr) {
@@ -2666,8 +2938,318 @@
     return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
   }
 
+  /* ══════════════════════════════════════════
+     CALENDAR INJECTION
+     Adds events to week + month views when an
+     assignment is created. Prototype handles
+     May 2026 dates; week view covers May 25–31.
+  ══════════════════════════════════════════ */
+
+  // column index inside each week-view cal-row (0 = time label, 1 = Mon 25 … 7 = Sun 31)
+  var WEEK_COL = { 25:1, 26:2, 27:3, 28:4, 29:5, 30:6, 31:7 };
+
+  // Track where the next day-view event starts (px from 3 PM top)
+  var dayViewNextTop = 420;
+
+  function addToCalendar(color, clsName, asgName, dueDate, mins) {
+    if (!dueDate) return;
+    var d = new Date(dueDate + 'T00:00:00');
+    var dayNum   = d.getDate();
+    var monthNum = d.getMonth() + 1;
+    var yearNum  = d.getFullYear();
+
+    // Prototype calendar only covers May 2026
+    if (yearNum !== 2026 || monthNum !== 5) return;
+
+    var shortName = asgName.length > 20 ? asgName.slice(0, 18) + '…' : asgName;
+    var weekRows  = document.querySelectorAll('#view-week .cal-grid-body .cal-row');
+
+    // Build the shared data object for the details screen
+    var monthNames = ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var asgnData = {
+      name: asgName, cls: clsName, color: color,
+      due: monthNames[monthNum] + ' ' + dayNum + ', ' + yearNum,
+      mins: mins, status: 'upcoming', source: 'Added manually'
+    };
+
+    // ── DUE chip in month view ──
+    addMonthChip(color, shortName + ' DUE', dayNum, asgnData);
+
+    // ── DUE chip in week view (May 25–31 only) ──
+    if (WEEK_COL[dayNum] && weekRows[0]) {
+      addWeekChip(weekRows[0], WEEK_COL[dayNum], color, shortName, null, asgnData);
+    }
+
+    // ── Study session chunks ──
+    var chunks    = mins > 60 ? 2 : 1;
+    var chunkMins = Math.round(mins / chunks);
+
+    for (var i = 0; i < chunks; i++) {
+      var studyDay   = dayNum - (chunks - i);
+      var chunkLabel = chunks > 1 ? shortName + ' ch.' + (i + 1) : shortName;
+      var chunkData  = Object.assign({}, asgnData, { name: asgName + (chunks > 1 ? ' (chunk ' + (i+1) + ' of ' + chunks + ')' : '') });
+
+      if (studyDay >= 1 && studyDay <= 31) {
+        addMonthChip(color, chunkLabel + ' study', studyDay, chunkData);
+      }
+      if (WEEK_COL[studyDay] && weekRows.length >= 4) {
+        var studyRowIdx = (chunks === 1 || i % 2 === 0) ? 2 : 3;
+        addWeekChip(weekRows[studyRowIdx], WEEK_COL[studyDay], color, chunkLabel, chunkMins + ' min', chunkData);
+      }
+      if (studyDay === 26) {
+        addDayEvent(color, clsName, chunkLabel, chunkMins, chunkData);
+      }
+    }
+  }
+
+  /* ══════════════════════════════════════════
+     ASSIGNMENT DETAILS — DYNAMIC POPULATION
+  ══════════════════════════════════════════ */
+  var COLOR_CLASS_NAMES = { bio:'Biology', alg:'Algebra II', hist:'History', eng:'English', rose:'Custom', teal:'Custom' };
+  var ALL_COLORS        = ['bio','alg','hist','eng','rose','teal'];
+
+  function showAssignmentDetails(data, backTo) {
+    backTo = backTo || 'classes';
+
+    // Title
+    document.getElementById('details-title').textContent = data.name || 'Assignment';
+
+    // Class tag — color + label
+    var tag = document.getElementById('details-class-tag');
+    tag.className = 'details-class-tag ' + (data.color || 'bio');
+    document.getElementById('details-class-dot').className = 'class-dot ' + (data.color || 'bio');
+    document.getElementById('details-class-label').textContent =
+      (data.cls || 'Class') + ' · ' + (data.source || 'Added manually');
+
+    // Fields
+    document.getElementById('details-due').textContent   = data.due  || '—';
+    document.getElementById('details-topic').textContent = data.topic || '—';
+    document.getElementById('est-time-input').value = (data.mins || 45) + ' min';
+
+    // Status badge
+    var isProg = (data.status === 'in-progress');
+    document.getElementById('details-status').innerHTML =
+      '<span class="badge ' + (isProg ? 'badge-progress' : 'badge-upcoming') + '">' +
+      (isProg ? 'In progress' : 'Upcoming') + '</span>';
+
+    // Chunk rows
+    var rows = document.querySelectorAll('#chunks-preview .chunk-row span:last-child');
+    if (rows.length >= 2) {
+      var half = Math.round((data.mins || 45) / 2);
+      rows[0].textContent = half + ' min';
+      rows[1].textContent = ((data.mins || 45) - half) + ' min';
+    }
+
+    // Reset status buttons (in case a previous view left them in a changed state)
+    var btns = document.querySelectorAll('#screen-assignment-details .status-btn-inline');
+    var labels = ['Done early', 'Taking longer', 'Finished', 'Incomplete'];
+    btns.forEach(function(b, i) {
+      b.disabled = false;
+      b.style.cssText = '';
+      if (labels[i]) b.textContent = labels[i];
+    });
+
+    // Back link
+    var backLabels = { classes:'← Classes', calendar:'← Calendar', 'daily-plan':'← Daily Plan' };
+    var backLink = document.getElementById('details-back-link');
+    backLink.textContent = backLabels[backTo] || '← Back';
+    backLink.onclick = function() { navigate(backTo); };
+
+    navigate('assignment-details');
+  }
+
+  /* Read data from a .asgn-row element and its parent .class-folder */
+  function openAsgnRow(row, backTo) {
+    var folder = row.closest('.class-folder');
+    var color  = folder ? ALL_COLORS.find(function(c) { return folder.classList.contains(c); }) || 'bio' : 'bio';
+    var cls    = COLOR_CLASS_NAMES[color] || 'Class';
+    // If folder was user-added, get real name from header
+    if (folder) {
+      var headerLeft = folder.querySelector('.folder-header-left');
+      if (headerLeft) {
+        var headerText = headerLeft.childNodes;
+        // Get text node after the class-dot span
+        for (var i = 0; i < headerText.length; i++) {
+          if (headerText[i].nodeType === 3 && headerText[i].textContent.trim()) {
+            cls = headerText[i].textContent.trim(); break;
+          }
+        }
+      }
+    }
+    var cells  = row.querySelectorAll('span');
+    var name   = cells[0] ? cells[0].textContent.trim() : '';
+    var due    = cells[1] ? cells[1].textContent.trim() : '—';
+    var mins   = cells[2] ? parseInt(cells[2].textContent) || 45 : 45;
+    var badge  = cells[3] ? cells[3].querySelector('.badge') : null;
+    var status = badge && badge.classList.contains('badge-progress') ? 'in-progress' : 'upcoming';
+    showAssignmentDetails({ name:name, cls:cls, color:color, due:due, mins:mins, status:status, source:'Google Classroom' }, backTo || 'classes');
+  }
+
+  /* Read data from a .plan-item element */
+  function openPlanItemDetails(item) {
+    var color  = ALL_COLORS.find(function(c) { return item.classList.contains(c); }) || 'bio';
+    var cls    = (item.querySelector('.plan-item-class') || {}).textContent || COLOR_CLASS_NAMES[color];
+    var name   = (item.querySelector('.plan-item-name')  || {}).textContent || '';
+    var metas  = item.querySelectorAll('.plan-item-meta span');
+    var due    = metas[0] ? metas[0].textContent.replace('Due ','') : '—';
+    var mins   = metas[1] ? parseInt(metas[1].textContent) || 45 : 45;
+    // Try dataset for dynamically-added items
+    if (item.dataset.mins) mins = parseInt(item.dataset.mins);
+    if (item.dataset.due)  due  = item.dataset.due;
+    if (item.dataset.topic) {
+      showAssignmentDetails({ name:name, cls:cls, color:color, due:due, mins:mins, status:'in-progress', topic:item.dataset.topic, source: item.dataset.source || 'Added manually' }, 'daily-plan');
+    } else {
+      showAssignmentDetails({ name:name, cls:cls, color:color, due:due, mins:mins, status:'in-progress', source:'Google Classroom' }, 'daily-plan');
+    }
+  }
+
+  function addMonthChip(color, label, dayNum, asgnData) {
+    var allCells = document.querySelectorAll('#view-month .cal-month-cell');
+    for (var i = 0; i < allCells.length; i++) {
+      var cell = allCells[i];
+      if (cell.classList.contains('other-month')) continue;
+      var dayEl = cell.querySelector('.month-day-num');
+      if (dayEl && dayEl.textContent.trim() === String(dayNum)) {
+        var chip = document.createElement('div');
+        chip.className = 'month-chip ' + color;
+        chip.textContent = label;
+        (function(d) {
+          chip.onclick = function() { if (d) showAssignmentDetails(d, 'calendar'); else navigate('calendar'); };
+        })(asgnData);
+        cell.appendChild(chip);
+        return;
+      }
+    }
+  }
+
+  function addWeekChip(row, colIdx, color, label, timeLabel, asgnData) {
+    var cells = row.querySelectorAll('.cal-cell');
+    if (!cells[colIdx]) return;
+    var chip = document.createElement('div');
+    chip.className = 'cal-chip ' + color;
+    (function(d) {
+      chip.onclick = function() { if (d) showAssignmentDetails(d, 'calendar'); else navigate('calendar'); };
+    })(asgnData);
+    chip.textContent = label;
+    if (timeLabel) {
+      var small = document.createElement('small');
+      small.textContent = timeLabel;
+      chip.appendChild(small);
+    }
+    cells[colIdx].appendChild(chip);
+  }
+
+  function addDayEvent(color, clsName, label, mins, asgnData) {
+    var col = document.querySelector('.day-events-col');
+    if (!col) return;
+    var height = Math.max(Math.round((mins / 60) * 65), 36);
+    var ev = document.createElement('div');
+    ev.className = 'day-event ' + color;
+    ev.style.cssText = 'position:absolute; left:0; right:0; top:' + dayViewNextTop + 'px; height:' + height + 'px;';
+    (function(d) {
+      ev.onclick = function() { if (d) showAssignmentDetails(d, 'calendar'); else navigate('calendar'); };
+    })(asgnData);
+    var startHr  = 3 + Math.floor(dayViewNextTop / 65);
+    var startMin = Math.round(((dayViewNextTop / 65) % 1) * 60);
+    ev.innerHTML =
+      '<div class="day-event-class">' + escHtml(clsName) + '</div>' +
+      '<div class="day-event-name">'  + escHtml(label)   + '</div>' +
+      '<div class="day-event-time">'  + startHr + ':' + (startMin < 10 ? '0' : '') + startMin + ' PM · ' + mins + ' min</div>';
+    col.appendChild(ev);
+    dayViewNextTop += height + 4;
+  }
+
   function escHtml(str) {
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* ══════════════════════════════════════════
+     ADD CLASS
+  ══════════════════════════════════════════ */
+  function showAddClassOverlay() {
+    document.getElementById('new-class-name').value = '';
+    document.getElementById('new-class-source').selectedIndex = 0;
+    document.getElementById('new-class-cumulative').classList.remove('on');
+    document.querySelectorAll('#class-color-picker .color-swatch').forEach(s => s.classList.remove('selected'));
+    document.querySelector('#class-color-picker .color-swatch').classList.add('selected');
+    document.getElementById('add-class-overlay').classList.add('visible');
+    setTimeout(() => document.getElementById('new-class-name').focus(), 50);
+  }
+
+  function closeAddClassOverlay() {
+    document.getElementById('add-class-overlay').classList.remove('visible');
+  }
+
+  function selectClassColor(swatch) {
+    document.querySelectorAll('#class-color-picker .color-swatch').forEach(s => s.classList.remove('selected'));
+    swatch.classList.add('selected');
+  }
+
+  function addClass() {
+    var nameInput = document.getElementById('new-class-name');
+    var name = nameInput.value.trim();
+    if (!name) { toast('Please enter a class name'); nameInput.focus(); return; }
+
+    var selectedSwatch = document.querySelector('#class-color-picker .color-swatch.selected');
+    var color = selectedSwatch ? selectedSwatch.dataset.color : 'bio';
+
+    var isCumulative = document.getElementById('new-class-cumulative').classList.contains('on');
+
+    var sourceEl = document.getElementById('new-class-source');
+    var sourceLabels = {
+      manual: 'Manual',
+      ap: 'AP',
+      college: 'College',
+      other: 'Other app'
+    };
+    var sourceLabel = sourceLabels[sourceEl.value] || 'Manual';
+
+    // Build the new class folder
+    var folder = document.createElement('div');
+    folder.className = 'class-folder ' + color;
+    folder.innerHTML =
+      '<div class="folder-header" onclick="toggleFolder(this)">' +
+        '<div class="folder-header-left">' +
+          '<span class="class-dot ' + color + '"></span>' +
+          ' ' + escHtml(name) +
+          ' <span class="class-source-tag">' + escHtml(sourceLabel) + '</span>' +
+        '</div>' +
+        '<span class="folder-chevron">▶</span>' +
+      '</div>' +
+      '<div class="folder-body open">' +
+        '<div class="class-settings-row">' +
+          '<div class="class-settings-left">' +
+            '<div class="cumulative-icon ' + color + '">🔗</div>' +
+            '<div>' +
+              '<div class="class-settings-label">Cumulative subject</div>' +
+              '<div class="class-settings-desc">OnTrack prioritizes this higher — topics build on each other</div>' +
+            '</div>' +
+          '</div>' +
+          '<div class="toggle-switch ' + (isCumulative ? 'on' : '') + '" onclick="this.classList.toggle(\'on\')"></div>' +
+        '</div>' +
+        '<div class="asgn-row asgn-header">' +
+          '<span>Assignment</span><span>Due</span><span>Est. time</span><span>Status</span>' +
+        '</div>' +
+        '<div style="padding:14px 18px; font-size:12px; color:var(--text-muted); font-style:italic;">' +
+          'No assignments yet — add one with the + button above' +
+        '</div>' +
+      '</div>';
+
+    document.querySelector('.classes-body').appendChild(folder);
+
+    // Also inject into the add-assignment class dropdown
+    var classSelect = document.querySelector('#add-overlay select');
+    if (classSelect) {
+      var opt = document.createElement('option');
+      opt.textContent = name;
+      opt.value = name;
+      classSelect.appendChild(opt);
+    }
+
+    closeAddClassOverlay();
+    toast('✓ ' + name + ' added to your classes');
+    // Scroll new folder into view
+    setTimeout(function() { folder.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }, 100);
   }
 
   /* ══════════════════════════════════════════

@@ -137,6 +137,66 @@ A flat list of every screen the system needs.
 
 ---
 
+## Use Cases
+
+Precise system behavior for each of the three jobs. These translate the Stage 2 scenarios into step-by-step flows a developer can build from, including failure states.
+
+---
+
+### Use Case 1 — Knowing what to work on during a crunch
+
+**Trigger:** Student opens OnTrack when overwhelmed by multiple assignments.
+
+1. Student opens OnTrack and lands on the Calendar with the Daily Plan panel open.
+2. System has already pulled all assignments from Google Classroom on login.
+3. System calculates priority order: cumulative/high-dependency subjects (e.g., biology before math packet), ordered by risk of falling behind, with easiest/lowest-stakes tasks last.
+4. System estimates time per assignment for tonight based on the student's configured availability hours and total estimated time per assignment.
+5. Daily Plan panel displays the ordered list — each item shows: class name, assignment name, due date, time to work on tonight.
+6. Student taps an assignment → status popup appears with options: done early, need a break, taking longer than expected, finished, incomplete.
+7. Student selects "taking longer than expected."
+8. System recalculates remaining assignments for the night using updated available time.
+9. If time runs short, system drops the lowest-priority task from tonight's plan.
+10. Daily Plan updates immediately to reflect the new order and time estimates.
+
+**Failure state:** If Google Classroom sync fails on login, system displays an error message on the Calendar and prompts the student to retry or add assignments manually.
+
+---
+
+### Use Case 2 — Getting started on a normal day
+
+**Trigger:** Student opens OnTrack on a regular day with no crisis — they just don't know where to start.
+
+1. Student opens OnTrack and lands on the Calendar with the Daily Plan panel open.
+2. System detects current time and calculates available window based on the student's configured availability hours.
+3. If the student is starting later than usual (e.g., lost time on the bus commute), system recalculates the plan around the remaining available time.
+4. System flags any assignment whose deadline has become tighter due to the late start (e.g., "Friday deadline now tighter than this morning").
+5. Daily Plan displays the adjusted prioritized list — hardest/most cognitively demanding first, easiest last.
+6. Student types a message in the chat input at the bottom of the Daily Plan panel (e.g., "I'm starting late tonight").
+7. Assistant receives the message, recalculates, and responds in plain language explaining the adjusted plan.
+8. Daily Plan panel updates to reflect the new plan.
+
+**Failure state:** If the student has no assignments in Google Classroom, Daily Plan shows "No assignments posted yet."
+
+---
+
+### Use Case 3 — Chipping away at a long-term project
+
+**Trigger:** Student has a months-long project and wants OnTrack to break it into daily pieces.
+
+1. Student navigates to Assignment Details for the long-term project (via Calendar timeline or Classes → class folder → assignment).
+2. Assignment Details shows the assignment pulled from Google Classroom with its due date.
+3. Student sets estimated total time (e.g., 6 hours per sub-assignment).
+4. Student toggles chunking on — OnTrack will break the assignment into daily pieces rather than scheduling it as one session.
+5. System calculates the number of daily chunks needed and distributes them across available days between now and the deadline.
+6. Chunks appear in the Daily Plan alongside other assignments each day — scheduled earlier in the evening when cognitive load is higher.
+7. If OnTrack underestimates the time needed for another assignment on the same night (e.g., biology review), that assignment runs over and the student marks it incomplete via the Daily Plan popup.
+8. System reschedules the incomplete assignment to the next day as the first priority, with a longer time block.
+9. Long-term project chunk remains on schedule for that night — the student still completes it.
+
+**Failure state:** If the student sets an estimated time that is too short for OnTrack to fit into available days before the deadline, system warns: "Not enough time before the deadline. Adjust estimated time or availability hours."
+
+---
+
 ## Requirements
 
 - OnTrack must pull assignment data from Google Classroom automatically on login — no manual entry required for synced assignments
@@ -155,54 +215,8 @@ A flat list of every screen the system needs.
 
 ---
 
-## Prioritization algorithm
+## Open questions
 
-OnTrack orders tonight's assignments using this hierarchy (highest to lowest):
-
-1. **Due date proximity** — anything due tomorrow is always first, no exceptions.
-2. **Cumulative subject flag** — among assignments with the same due date, subjects the student has marked as cumulative (topics build on each other) rank above non-cumulative ones. Student sets this per class via a toggle inside the Classes screen. Default: OFF.
-3. **Chunk of a long project** — if an assignment is over 60 minutes and due more than 3 days away, OnTrack schedules a small chunk today rather than waiting. Prevents the Luis spiral (waiting for a big block that never comes).
-4. **Cognitive demand first** — within a single night, harder tasks go earlier in the session when the student is fresh. Easy tasks go last.
-5. **Estimated time is a tiebreaker only** — short assignments go last, not first. This directly counters the students' natural instinct (all three interviewees defaulted to picking the easiest/shortest thing first).
-
-**Decision log:** Cumulative subject classification is set by the student per class, not inferred by OnTrack. Rationale: simpler, avoids wrong guesses, consistent with "no setup friction" — the toggle lives inside the class folder so it's seen in context, not buried in a settings screen.
-
----
-
-## Sync failure behavior
-
-OnTrack stores the last successful sync in browser localStorage (no server storage — data never leaves the student's device, FERPA/COPPA safe).
-
-**Two states:**
-
-**State 1 — Returning user (cache exists):**
-A dismissible amber banner appears at the top of the app:
-> ⚠ Couldn't sync with Google Classroom. Showing your assignments from [last sync time] — they may be out of date. [Retry] [×]
-
-The student can still use their plan from the last sync. Retry re-attempts the Classroom connection silently. Dismissing the banner hides it for the session.
-
-**State 2 — First-time user (no cache):**
-A centered error card replaces the app (full-screen, above the shell):
-> 📡 Couldn't connect to Google Classroom
-> This is usually temporary — Google Classroom may be down, or you might be offline. Your plan will appear once OnTrack can reach your account.
-> [Try again] · Check Google Classroom directly →
-
-"Try again" re-attempts the sync. The Classroom link opens classroom.google.com in a new tab as a fallback.
-
-**Decision log:** Option B (store last sync in browser localStorage) chosen over Option A (pure error screen with no data). Rationale: a student who used OnTrack yesterday shouldn't lose their plan because of a 10-minute Classroom outage. localStorage keeps data on-device only — no server, no FERPA exposure. Open question 2 resolved.
-
----
-
-## Task completion mechanism
-
-Tapping any assignment in the Daily Plan opens a **floating status popup** near the tap point. Five options:
-
-| Option | What OnTrack does |
-|---|---|
-| ✓ Done early | Marks complete, removes from tonight's plan, pulls in the next queued item if time allows |
-| ⏱ Taking longer → tell assistant | Opens the Assistant screen with the assignment pre-filled; student explains and the plan adjusts through conversation |
-| 🏁 Finished | Marks complete, removes from tonight's plan |
-| ↩ Incomplete | Removes from tonight's plan, reschedules as first priority tomorrow |
-| ☕ Need a break | Moves this assignment to the bottom of tonight's list; OnTrack continues with the next item and returns to this one after |
-
-**Decision log:** A simple checkbox was ruled out — all three interview scenarios (Jayden, Jovan, Luis) required students to report *what* happened (ran long, skipped, incomplete) for OnTrack to replan correctly. A checkbox only captures done/not-done. The popup was chosen over an inline-expand mechanism because it preserves "Need a break" as a distinct action — pausing without abandoning an assignment is a real student need. Open question 3 resolved.
+- How does OnTrack calculate prioritization — what is the algorithm for deciding which assignment goes first (cumulative subjects, due date proximity, estimated time, or a combination)?
+- What does the student see if Google Classroom is down or the sync fails on login?
+- Task completion mechanism — something more nuanced than checkboxes is preferred (e.g., reflecting partial completion or "took longer than expected"), but the specific mechanism is not yet decided
